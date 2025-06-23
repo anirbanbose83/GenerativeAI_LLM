@@ -90,7 +90,6 @@ DNLI-style entailment detection — classify hypothesis as:
 ## 📂 Project Structure
 
 ```
-text
 ├── personalized_ai_tutor_gradio.ipynb     # Main notebook
 └── README.md                              # This file
 ```

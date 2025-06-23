@@ -51,7 +51,7 @@ nltk.download("punkt")
 
    ```bash
    git clone https://github.com/anirbanbose83/GenerativeAI_LLM.git
-   cd personalized-ai-tutor
+   cd GenerativeAI_LLM/Personalized_AI_Tutor
    ```
 
 2. Run the notebook:

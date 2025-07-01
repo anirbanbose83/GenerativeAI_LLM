@@ -2,9 +2,20 @@
 
 This project allows you to **automatically generate a company brochure** by simply entering a website URL, selecting a tone (e.g., professional, jovial), and choosing a language. The app uses OpenAI's `gpt-4o-mini`, `BeautifulSoup` for web scraping, and `Gradio` for a no-code UI experience — all running inside Google Colab.
 
-## 🔗 GitHub Repository
+## How to Use (Local or Notebook)
+📂 Clone the Repository
+```bash
+git clone https://github.com/anirbanbose83/GenerativeAI_LLM.git
+cd GenerativeAI_LLM/Multi_Language_Brochure_Generation
+````
 
-🔗 [View Project on GitHub](https://github.com/anirbanbose83/GenerativeAI_LLM/tree/main/Multi_Language_Brochure_Generation)
+▶️ Open in Colab
+Open the main .ipynb file in Google Colab, set your API key using:
+```bash
+from google.colab import userdata
+userdata.set_secret("OPENAI_API_KEY")
+````
+Then run all cells.
 
 ## ✨ Features
 

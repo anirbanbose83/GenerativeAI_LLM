@@ -1,5 +1,3 @@
-
-````markdown
 # 🌍 Multilingual Company Brochure Generator
 
 This project allows you to **automatically generate a company brochure** by simply entering a website URL, selecting a tone (e.g., professional, jovial), and choosing a language. The app uses OpenAI's `gpt-4o-mini`, `BeautifulSoup` for web scraping, and `Gradio` for a no-code UI experience — all running inside Google Colab.
@@ -118,12 +116,5 @@ Pull requests are welcome. For major changes, please open an issue first to disc
 * [Gradio](https://gradio.app/)
 * [Google Colab](https://colab.research.google.com/)
 
-```
 
 
-
-Let me know if you want:
-- A version with badges (Hugging Face, Colab, OpenAI)
-- A GitHub-style directory structure (`/src`, `/notebooks`, `/assets`)
-- This packaged as a repo zip with everything included
-```

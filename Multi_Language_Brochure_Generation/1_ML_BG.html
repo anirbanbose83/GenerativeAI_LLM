@@ -14580,7 +14580,7 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h3 id="Candidate-Name:-Anirban-Bose"><span style="color:purple; font-weight:bold;">Candidate Name: Anirban Bose</span><a class="anchor-link" href="#Candidate-Name:-Anirban-Bose">&#182;</a></h3><h3><strong style="color:purple;">Assignment: Multi Language Brochure Generation</strong></h3>
+<h2 id="STEP-0:-Install-required-libraries">STEP 0: Install required libraries<a class="anchor-link" href="#STEP-0:-Install-required-libraries">&#182;</a></h2>
 </div>
 </div>
 </div>
@@ -14589,75 +14589,51 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[1]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[48]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># imports</span>
-<span class="c1"># If these fail, please check you're running from an 'activated' environment with (llms) in the command prompt</span>
+<div class=" highlight hl-python"><pre><span></span><span class="c1"># --- Install dependencies ---</span>
+<span class="err">!</span><span class="n">pip</span> <span class="n">install</span> <span class="o">-</span><span class="n">q</span> <span class="n">openai</span> <span class="n">python</span><span class="o">-</span><span class="n">dotenv</span> <span class="n">beautifulsoup4</span> <span class="n">gradio</span>
+</pre></div>
 
+     </div>
+</div>
+</div>
+</div>
+
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h2 id="STEP-1:-Import-packages-and-load-OpenAI-API-key-securely-from-Colab-secrets">STEP 1: Import packages and load OpenAI API key securely from Colab secrets<a class="anchor-link" href="#STEP-1:-Import-packages-and-load-OpenAI-API-key-securely-from-Colab-secrets">&#182;</a></h2>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[49]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-python"><pre><span></span><span class="c1"># --- Imports ---</span>
 <span class="kn">import</span> <span class="nn">os</span>
-<span class="kn">import</span> <span class="nn">requests</span>
 <span class="kn">import</span> <span class="nn">json</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span>
-<span class="kn">from</span> <span class="nn">dotenv</span> <span class="kn">import</span> <span class="n">load_dotenv</span>
+<span class="kn">import</span> <span class="nn">requests</span>
 <span class="kn">from</span> <span class="nn">bs4</span> <span class="kn">import</span> <span class="n">BeautifulSoup</span>
+<span class="kn">from</span> <span class="nn">dotenv</span> <span class="kn">import</span> <span class="n">load_dotenv</span>
+<span class="kn">import</span> <span class="nn">openai</span>
 <span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">Markdown</span><span class="p">,</span> <span class="n">display</span><span class="p">,</span> <span class="n">update_display</span>
-<span class="kn">from</span> <span class="nn">openai</span> <span class="kn">import</span> <span class="n">OpenAI</span>
+<span class="kn">import</span> <span class="nn">gradio</span> <span class="k">as</span> <span class="nn">gr</span>
 </pre></div>
 
      </div>
 </div>
 </div>
-</div>
-
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[2]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Initialize and constants</span>
-
-<span class="n">load_dotenv</span><span class="p">(</span><span class="n">override</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="n">api_key</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s1">'OPENAI_API_KEY'</span><span class="p">)</span>
-
-<span class="k">if</span> <span class="n">api_key</span> <span class="ow">and</span> <span class="n">api_key</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">'sk-proj-'</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">api_key</span><span class="p">)</span><span class="o">&gt;</span><span class="mi">10</span><span class="p">:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">"API key looks good so far"</span><span class="p">)</span>
-<span class="k">else</span><span class="p">:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">"There might be a problem with your API key? Please visit the troubleshooting notebook!"</span><span class="p">)</span>
-    
-<span class="n">MODEL</span> <span class="o">=</span> <span class="s1">'gpt-4o-mini'</span>
-<span class="n">openai</span> <span class="o">=</span> <span class="n">OpenAI</span><span class="p">()</span>
-</pre></div>
-
-     </div>
-</div>
-</div>
-</div>
-
-<div class="jp-Cell-outputWrapper">
-<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
-</div>
-
-
-<div class="jp-OutputArea jp-Cell-outputArea">
-
-<div class="jp-OutputArea-child">
-
-    
-    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
-
-
-<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
-<pre>API key looks good so far
-</pre>
-</div>
-</div>
-
-</div>
-
 </div>
 
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
@@ -14665,34 +14641,74 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[3]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[50]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># A class to represent a Webpage</span>
+<div class=" highlight hl-python"><pre><span></span><span class="c1"># --- Secure API Key via Colab Secrets ---</span>
+<span class="kn">from</span> <span class="nn">google.colab</span> <span class="kn">import</span> <span class="n">userdata</span>
+<span class="kn">from</span> <span class="nn">openai</span> <span class="kn">import</span> <span class="n">OpenAI</span>
 
-<span class="c1"># Some websites need you to use proper headers when fetching them:</span>
-<span class="n">headers</span> <span class="o">=</span> <span class="p">{</span>
- <span class="s2">"User-Agent"</span><span class="p">:</span> <span class="s2">"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36"</span>
-<span class="p">}</span>
+<span class="n">client</span> <span class="o">=</span> <span class="n">OpenAI</span><span class="p">(</span><span class="n">api_key</span><span class="o">=</span><span class="n">userdata</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"OPENAI_API_KEY"</span><span class="p">))</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[51]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-python"><pre><span></span><span class="c1"># --- Fix the model ---</span>
+<span class="n">MODEL</span> <span class="o">=</span> <span class="s1">'gpt-4o-mini'</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h2 id="STEP-2:-Define-website-scraper-to-extract-content-and-links">STEP 2: Define website scraper to extract content and links<a class="anchor-link" href="#STEP-2:-Define-website-scraper-to-extract-content-and-links">&#182;</a></h2>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[52]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-python"><pre><span></span><span class="c1"># --- Web scraper class ---</span>
+<span class="n">headers</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"User-Agent"</span><span class="p">:</span> <span class="s2">"Mozilla/5.0"</span><span class="p">}</span>
 
 <span class="k">class</span> <span class="nc">Website</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">"""</span>
-<span class="sd">    A utility class to represent a Website that we have scraped, now with links</span>
-<span class="sd">    """</span>
-
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">url</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">url</span> <span class="o">=</span> <span class="n">url</span>
         <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">body</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">content</span>
-        <span class="n">soup</span> <span class="o">=</span> <span class="n">BeautifulSoup</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">body</span><span class="p">,</span> <span class="s1">'html.parser'</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">title</span> <span class="o">=</span> <span class="n">soup</span><span class="o">.</span><span class="n">title</span><span class="o">.</span><span class="n">string</span> <span class="k">if</span> <span class="n">soup</span><span class="o">.</span><span class="n">title</span> <span class="k">else</span> <span class="s2">"No title found"</span>
+        <span class="n">soup</span> <span class="o">=</span> <span class="n">BeautifulSoup</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">body</span><span class="p">,</span> <span class="s2">"html.parser"</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">title</span> <span class="o">=</span> <span class="n">soup</span><span class="o">.</span><span class="n">title</span><span class="o">.</span><span class="n">string</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="k">if</span> <span class="n">soup</span><span class="o">.</span><span class="n">title</span> <span class="k">else</span> <span class="s2">"No title found"</span>
         <span class="k">if</span> <span class="n">soup</span><span class="o">.</span><span class="n">body</span><span class="p">:</span>
-            <span class="k">for</span> <span class="n">irrelevant</span> <span class="ow">in</span> <span class="n">soup</span><span class="o">.</span><span class="n">body</span><span class="p">([</span><span class="s2">"script"</span><span class="p">,</span> <span class="s2">"style"</span><span class="p">,</span> <span class="s2">"img"</span><span class="p">,</span> <span class="s2">"input"</span><span class="p">]):</span>
-                <span class="n">irrelevant</span><span class="o">.</span><span class="n">decompose</span><span class="p">()</span>
+            <span class="k">for</span> <span class="n">tag</span> <span class="ow">in</span> <span class="n">soup</span><span class="o">.</span><span class="n">body</span><span class="p">([</span><span class="s2">"script"</span><span class="p">,</span> <span class="s2">"style"</span><span class="p">,</span> <span class="s2">"img"</span><span class="p">,</span> <span class="s2">"input"</span><span class="p">]):</span>
+                <span class="n">tag</span><span class="o">.</span><span class="n">decompose</span><span class="p">()</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="n">soup</span><span class="o">.</span><span class="n">body</span><span class="o">.</span><span class="n">get_text</span><span class="p">(</span><span class="n">separator</span><span class="o">=</span><span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="p">,</span> <span class="n">strip</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="s2">""</span>
-        <span class="n">links</span> <span class="o">=</span> <span class="p">[</span><span class="n">link</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'href'</span><span class="p">)</span> <span class="k">for</span> <span class="n">link</span> <span class="ow">in</span> <span class="n">soup</span><span class="o">.</span><span class="n">find_all</span><span class="p">(</span><span class="s1">'a'</span><span class="p">)]</span>
+        <span class="n">links</span> <span class="o">=</span> <span class="p">[</span><span class="n">link</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"href"</span><span class="p">)</span> <span class="k">for</span> <span class="n">link</span> <span class="ow">in</span> <span class="n">soup</span><span class="o">.</span><span class="n">find_all</span><span class="p">(</span><span class="s2">"a"</span><span class="p">)]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">links</span> <span class="o">=</span> <span class="p">[</span><span class="n">link</span> <span class="k">for</span> <span class="n">link</span> <span class="ow">in</span> <span class="n">links</span> <span class="k">if</span> <span class="n">link</span><span class="p">]</span>
 
     <span class="k">def</span> <span class="nf">get_contents</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -14704,518 +14720,6 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 </div>
 </div>
 
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[4]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">company_name</span> <span class="o">=</span> <span class="s2">"CNN"</span>
-<span class="n">website_url</span> <span class="o">=</span> <span class="s2">"https://edition.cnn.com/"</span>
-<span class="n">website_details</span> <span class="o">=</span> <span class="n">Website</span><span class="p">(</span><span class="n">website_url</span><span class="p">)</span>
-<span class="n">website_details</span><span class="o">.</span><span class="n">links</span>
-</pre></div>
-
-     </div>
-</div>
-</div>
-</div>
-
-<div class="jp-Cell-outputWrapper">
-<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
-</div>
-
-
-<div class="jp-OutputArea jp-Cell-outputArea">
-
-<div class="jp-OutputArea-child">
-
-    
-    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[4]:</div>
-
-
-
-
-<div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain">
-<pre>[&#39;https://edition.cnn.com&#39;,
- &#39;https://edition.cnn.com/us&#39;,
- &#39;https://edition.cnn.com/world&#39;,
- &#39;https://edition.cnn.com/politics&#39;,
- &#39;https://edition.cnn.com/business&#39;,
- &#39;https://edition.cnn.com/health&#39;,
- &#39;https://edition.cnn.com/entertainment&#39;,
- &#39;https://edition.cnn.com/style&#39;,
- &#39;https://edition.cnn.com/travel&#39;,
- &#39;https://edition.cnn.com/sports&#39;,
- &#39;https://edition.cnn.com/science&#39;,
- &#39;https://edition.cnn.com/climate&#39;,
- &#39;https://edition.cnn.com/weather&#39;,
- &#39;https://edition.cnn.com/world/europe/ukraine&#39;,
- &#39;https://edition.cnn.com/world/middleeast/israel&#39;,
- &#39;https://edition.cnn.com/games&#39;,
- &#39;https://edition.cnn.com/us&#39;,
- &#39;https://edition.cnn.com/world&#39;,
- &#39;https://edition.cnn.com/politics&#39;,
- &#39;https://edition.cnn.com/business&#39;,
- &#39;https://edition.cnn.com/health&#39;,
- &#39;https://edition.cnn.com/entertainment&#39;,
- &#39;https://edition.cnn.com/style&#39;,
- &#39;https://edition.cnn.com/travel&#39;,
- &#39;https://edition.cnn.com/sports&#39;,
- &#39;https://edition.cnn.com/science&#39;,
- &#39;https://edition.cnn.com/climate&#39;,
- &#39;https://edition.cnn.com/weather&#39;,
- &#39;https://edition.cnn.com/world/europe/ukraine&#39;,
- &#39;https://edition.cnn.com/world/middleeast/israel&#39;,
- &#39;https://edition.cnn.com/games&#39;,
- &#39;https://edition.cnn.com/video&#39;,
- &#39;https://edition.cnn.com/audio&#39;,
- &#39;https://edition.cnn.com/live-tv&#39;,
- &#39;/account/settings&#39;,
- &#39;/newsletters&#39;,
- &#39;/follow?iid=fw_var-nav&#39;,
- &#39;#&#39;,
- &#39;#&#39;,
- &#39;/account/settings&#39;,
- &#39;/newsletters&#39;,
- &#39;/follow?iid=fw_var-nav&#39;,
- &#39;#&#39;,
- &#39;#&#39;,
- &#39;https://edition.cnn.com/live-tv&#39;,
- &#39;https://edition.cnn.com/audio&#39;,
- &#39;https://edition.cnn.com/video&#39;,
- &#39;https://us.cnn.com?hpt=header_edition-picker&#39;,
- &#39;https://edition.cnn.com?hpt=header_edition-picker&#39;,
- &#39;https://arabic.cnn.com?hpt=header_edition-picker&#39;,
- &#39;https://cnnespanol.cnn.com/?hpt=header_edition-picker&#39;,
- &#39;https://us.cnn.com?hpt=header_edition-picker&#39;,
- &#39;https://edition.cnn.com?hpt=header_edition-picker&#39;,
- &#39;https://arabic.cnn.com?hpt=header_edition-picker&#39;,
- &#39;https://cnnespanol.cnn.com/?hpt=header_edition-picker&#39;,
- &#39;https://edition.cnn.com/world&#39;,
- &#39;https://edition.cnn.com/world/africa&#39;,
- &#39;https://edition.cnn.com/world/americas&#39;,
- &#39;https://edition.cnn.com/world/asia&#39;,
- &#39;https://edition.cnn.com/world/australia&#39;,
- &#39;https://edition.cnn.com/world/china&#39;,
- &#39;https://edition.cnn.com/world/europe&#39;,
- &#39;https://edition.cnn.com/world/india&#39;,
- &#39;https://edition.cnn.com/world/middle-east&#39;,
- &#39;https://edition.cnn.com/world/united-kingdom&#39;,
- &#39;https://edition.cnn.com/politics&#39;,
- &#39;https://www.cnn.com/politics/supreme-court&#39;,
- &#39;https://www.cnn.com/politics/congress&#39;,
- &#39;https://www.cnn.com/politics/fact-check&#39;,
- &#39;https://www.cnn.com/election/2024&#39;,
- &#39;https://edition.cnn.com/business&#39;,
- &#39;https://edition.cnn.com/business/tech&#39;,
- &#39;https://edition.cnn.com/business/media&#39;,
- &#39;https://edition.cnn.com/business/financial-calculators&#39;,
- &#39;https://edition.cnn.com/business/videos&#39;,
- &#39;https://edition.cnn.com/markets&#39;,
- &#39;https://edition.cnn.com/markets/premarkets&#39;,
- &#39;https://edition.cnn.com/markets/after-hours&#39;,
- &#39;https://edition.cnn.com/markets/fear-and-greed&#39;,
- &#39;https://edition.cnn.com/business/investing&#39;,
- &#39;https://edition.cnn.com/business/markets-now&#39;,
- &#39;https://edition.cnn.com/business/markets/nightcap&#39;,
- &#39;https://edition.cnn.com/health&#39;,
- &#39;https://edition.cnn.com/interactive/life-but-better/&#39;,
- &#39;https://edition.cnn.com/health/life-but-better/fitness&#39;,
- &#39;https://edition.cnn.com/health/life-but-better/food&#39;,
- &#39;https://edition.cnn.com/health/life-but-better/sleep&#39;,
- &#39;https://edition.cnn.com/health/life-but-better/mindfulness&#39;,
- &#39;https://edition.cnn.com/health/life-but-better/relationships&#39;,
- &#39;https://edition.cnn.com/entertainment&#39;,
- &#39;https://edition.cnn.com/entertainment/movies&#39;,
- &#39;https://edition.cnn.com/entertainment/tv-shows&#39;,
- &#39;https://edition.cnn.com/entertainment/celebrities&#39;,
- &#39;https://edition.cnn.com/business/tech&#39;,
- &#39;https://edition.cnn.com/business/tech/innovate&#39;,
- &#39;https://edition.cnn.com/business/tech/foreseeable-future&#39;,
- &#39;https://edition.cnn.com/business/tech/mission-ahead&#39;,
- &#39;https://edition.cnn.com/business/work-transformed&#39;,
- &#39;https://edition.cnn.com/business/tech/innovative-cities&#39;,
- &#39;https://edition.cnn.com/style&#39;,
- &#39;https://edition.cnn.com/style/arts&#39;,
- &#39;https://edition.cnn.com/style/design&#39;,
- &#39;https://edition.cnn.com/style/fashion&#39;,
- &#39;https://edition.cnn.com/style/architecture&#39;,
- &#39;https://edition.cnn.com/style/luxury&#39;,
- &#39;https://edition.cnn.com/style/beauty&#39;,
- &#39;https://edition.cnn.com/style/videos&#39;,
- &#39;https://edition.cnn.com/travel&#39;,
- &#39;https://edition.cnn.com/travel/destinations&#39;,
- &#39;https://edition.cnn.com/travel/food-and-drink&#39;,
- &#39;https://edition.cnn.com/travel/stay&#39;,
- &#39;https://edition.cnn.com/travel/news&#39;,
- &#39;https://edition.cnn.com/travel/videos&#39;,
- &#39;https://edition.cnn.com/sport&#39;,
- &#39;https://edition.cnn.com/sport/football&#39;,
- &#39;https://edition.cnn.com/sport/tennis&#39;,
- &#39;https://edition.cnn.com/sport/golf&#39;,
- &#39;https://edition.cnn.com/sport/motorsport&#39;,
- &#39;https://edition.cnn.com/sport/us-sports&#39;,
- &#39;https://edition.cnn.com/sport/paris-olympics-2024&#39;,
- &#39;https://edition.cnn.com/sport/climbing&#39;,
- &#39;https://edition.cnn.com/sport/esports&#39;,
- &#39;https://bleacherreport.com/nhl&#39;,
- &#39;https://edition.cnn.com/science&#39;,
- &#39;https://edition.cnn.com/science/space&#39;,
- &#39;https://edition.cnn.com/science/life&#39;,
- &#39;https://edition.cnn.com/science/unearthed&#39;,
- &#39;https://edition.cnn.com/climate&#39;,
- &#39;https://edition.cnn.com/climate/solutions&#39;,
- &#39;https://edition.cnn.com/weather&#39;,
- &#39;https://edition.cnn.com/weather&#39;,
- &#39;https://edition.cnn.com/specials/weather/weather-video&#39;,
- &#39;https://edition.cnn.com/climate&#39;,
- &#39;https://edition.cnn.com/world/europe/ukraine&#39;,
- &#39;https://edition.cnn.com/world/middleeast/israel&#39;,
- &#39;https://edition.cnn.com/specials&#39;,
- &#39;https://edition.cnn.com/interactive/asequals&#39;,
- &#39;https://edition.cnn.com/interactive/call-to-earth&#39;,
- &#39;https://edition.cnn.com/world/freedom-project&#39;,
- &#39;https://edition.cnn.com/world/impact-your-world&#39;,
- &#39;https://edition.cnn.com/world/africa/inside-africa&#39;,
- &#39;https://edition.cnn.com/world/heroes&#39;,
- &#39;https://edition.cnn.com/videos&#39;,
- &#39;https://edition.cnn.com/live-tv&#39;,
- &#39;https://edition.cnn.com/videos/fast/cnni-fast&#39;,
- &#39;https://edition.cnn.com/specials/tv/all-shows&#39;,
- &#39;https://edition.cnn.com/cnn10&#39;,
- &#39;https://www.max.com/channel/cnn-max&#39;,
- &#39;https://edition.cnn.com/tv/schedule/cnn&#39;,
- &#39;https://edition.cnn.com/audio&#39;,
- &#39;https://edition.cnn.com/audio/podcasts/5-things&#39;,
- &#39;https://edition.cnn.com/audio/podcasts/chasing-life&#39;,
- &#39;https://edition.cnn.com/audio/podcasts/the-assignment&#39;,
- &#39;https://edition.cnn.com/audio/podcasts/one-thing&#39;,
- &#39;https://edition.cnn.com/audio/podcasts/tug-of-war&#39;,
- &#39;https://edition.cnn.com/audio/podcasts/political-briefing&#39;,
- &#39;https://edition.cnn.com/audio/podcasts/axe-files&#39;,
- &#39;https://edition.cnn.com/audio/podcasts/all-there-is-with-anderson-cooper&#39;,
- &#39;https://edition.cnn.com/audio&#39;,
- &#39;https://edition.cnn.com/games&#39;,
- &#39;https://edition.cnn.com/games/play/cnn-crossword&#39;,
- &#39;https://edition.cnn.com/games/play/jumble-crossword-daily&#39;,
- &#39;https://edition.cnn.com/games/play/photo-shuffle&#39;,
- &#39;https://edition.cnn.com/games/play/sudoblock&#39;,
- &#39;https://edition.cnn.com/games/play/sudoku&#39;,
- &#39;https://cnn.it/5thingsquiz&#39;,
- &#39;https://edition.cnn.com/about&#39;,
- &#39;https://edition.cnn.com/world/photos&#39;,
- &#39;https://edition.cnn.com/us/cnn-investigates&#39;,
- &#39;https://edition.cnn.com/profiles&#39;,
- &#39;https://edition.cnn.com/profiles/cnn-leadership&#39;,
- &#39;https://edition.cnn.com/newsletters&#39;,
- &#39;https://careers.wbd.com/cnnjobs&#39;,
- &#39;https://facebook.com/CNN&#39;,
- &#39;https://twitter.com/CNN&#39;,
- &#39;https://instagram.com/CNN&#39;,
- &#39;https://www.tiktok.com/@cnn?lang=en&#39;,
- &#39;https://www.linkedin.com/company/cnn&#39;,
- &#39;/2025/03/31/europe/spain-mine-accident-intl/index.html&#39;,
- &#39;/2025/03/29/asia/before-after-myanmar-earthquake-intl-hnk/index.html&#39;,
- &#39;/2025/03/31/europe/marine-le-pen-embezzlement-trial-verdict-france-intl/index.html&#39;,
- &#39;/2025/03/30/europe/europe-defense-wake-up-ukraine-russia-trump-intl/index.html&#39;,
- &#39;/2025/03/31/politics/trump-tariffs-liberation-day-risk/index.html&#39;,
- &#39;/2025/03/31/asia/south-korea-fires-arrest-intl-hnk/index.html&#39;,
- &#39;/2025/03/30/health/lorazepam-white-lotus-wellness/index.html&#39;,
- &#39;/2025/03/31/politics/trump-tariffs-liberation-day-risk/index.html&#39;,
- &#39;/2025/03/31/politics/trump-tariffs-liberation-day-risk/index.html&#39;,
- &#39;/2025/03/31/politics/trump-tariffs-liberation-day-risk/index.html&#39;,
- &#39;/2025/03/31/investing/us-stocks-trump-tariff-uncertainty/index.html&#39;,
- &#39;/2025/03/30/politics/trump-third-term-methods/index.html&#39;,
- &#39;/2025/03/31/politics/elon-musk-wisconsin-supreme-court/index.html&#39;,
- &#39;/2025/03/31/politics/elon-musk-wisconsin-supreme-court/index.html&#39;,
- &#39;/2025/03/31/europe/greendland-trump-us-pushback-intl-hnk/index.html&#39;,
- &#39;/2025/03/31/europe/greendland-trump-us-pushback-intl-hnk/index.html&#39;,
- &#39;/2025/03/30/politics/video/john-dean-trump-third-term-nr-digvid&#39;,
- &#39;/2025/03/30/politics/video/john-dean-trump-third-term-nr-digvid&#39;,
- &#39;/2025/03/31/politics/bodies-recovered-soldiers-lithuania/index.html&#39;,
- &#39;/2025/03/31/politics/bodies-recovered-soldiers-lithuania/index.html&#39;,
- &#39;/2025/03/31/europe/ukraine-minerals-deal-trump-zelensky-intl/index.html&#39;,
- &#39;/2025/03/31/europe/ukraine-minerals-deal-trump-zelensky-intl/index.html&#39;,
- &#39;/2025/03/30/politics/trump-criticizes-putin-and-threatens-adversaries-with-new-tariffs/index.html&#39;,
- &#39;/2025/03/30/world/video/gps0330-putin-russia-ukraine-empire&#39;,
- &#39;/2025/03/30/europe/europe-defense-wake-up-ukraine-russia-trump-intl/index.html&#39;,
- &#39;https://www.cnn.com/&#39;,
- &#39;https://cnn.it/3ZYU7GX&#39;,
- &#39;/2025/03/30/health/lorazepam-white-lotus-wellness/index.html&#39;,
- &#39;/2025/03/30/health/lorazepam-white-lotus-wellness/index.html&#39;,
- &#39;/2025/03/31/business/primark-ceo-resigns/index.html&#39;,
- &#39;/2025/03/31/business/primark-ceo-resigns/index.html&#39;,
- &#39;/2025/03/31/food/japan-sukiya-stores-closed-rat-intl-hnk/index.html&#39;,
- &#39;/2025/03/31/food/japan-sukiya-stores-closed-rat-intl-hnk/index.html&#39;,
- &#39;/2025/03/31/entertainment/helen-mirren-james-bond-sexism-intl-scli/index.html&#39;,
- &#39;/2025/03/31/entertainment/helen-mirren-james-bond-sexism-intl-scli/index.html&#39;,
- &#39;/2025/03/31/europe/marine-le-pen-embezzlement-trial-verdict-france-intl/index.html&#39;,
- &#39;/2025/03/31/europe/marine-le-pen-embezzlement-trial-verdict-france-intl/index.html&#39;,
- &#39;/2025/03/31/middleeast/aid-workers-found-gaza-mass-grave-intl-hnk/index.html&#39;,
- &#39;/2025/03/31/europe/moldova-russia-mp-flee-transnistria-intl/index.html&#39;,
- &#39;/2025/03/30/asia/myanmar-thailand-earthquake-what-we-know-intl-hnk/index.html&#39;,
- &#39;/2025/03/31/middleeast/israel-netanyahu-strategy-gaza-future-intl/index.html&#39;,
- &#39;/2025/03/31/europe/spain-mine-accident-intl/index.html&#39;,
- &#39;/world/africa/uganda-ziwa-rhinos-c2e-spc/index.html&#39;,
- &#39;/world/africa/uganda-ziwa-rhinos-c2e-spc/index.html&#39;,
- &#39;/2025/03/31/business/foodcare-angola-cassava-caterpillars-spc/index.html&#39;,
- &#39;/2025/03/31/business/foodcare-angola-cassava-caterpillars-spc/index.html&#39;,
- &#39;/2025/03/31/health/deep-rem-sleep-alzheimers-wellness/index.html&#39;,
- &#39;/2025/03/31/health/deep-rem-sleep-alzheimers-wellness/index.html&#39;,
- &#39;/2025/03/31/asia/south-korea-fires-arrest-intl-hnk/index.html&#39;,
- &#39;/2025/03/31/asia/south-korea-fires-arrest-intl-hnk/index.html&#39;,
- &#39;/2025/03/31/europe/tesla-cars-fire-rome-intl/index.html&#39;,
- &#39;/2025/03/31/europe/tesla-cars-fire-rome-intl/index.html&#39;,
- &#39;/2025/03/31/sport/domen-prevc-ski-jump-world-record-spt-intl/index.html&#39;,
- &#39;/2025/03/31/sport/domen-prevc-ski-jump-world-record-spt-intl/index.html&#39;,
- &#39;/2025/03/24/business/video/self-driving-cars-rural-roads-uk-blueprint-spc-digvid&#39;,
- &#39;/2025/03/24/business/video/self-driving-cars-rural-roads-uk-blueprint-spc-digvid&#39;,
- &#39;/2025/03/31/sport/jakub-mensik-novak-djokovic-miami-open-spt-intl/index.html&#39;,
- &#39;/2025/03/31/sport/jakub-mensik-novak-djokovic-miami-open-spt-intl/index.html&#39;,
- &#39;/2025/03/30/business/hyvegeo-green-desert-microalgae-charcoal-spc/index.html&#39;,
- &#39;/2025/03/30/business/hyvegeo-green-desert-microalgae-charcoal-spc/index.html&#39;,
- &#39;/2025/03/31/entertainment/the-who-roger-daltrey-pete-towshend/index.html&#39;,
- &#39;/2025/03/31/entertainment/the-who-roger-daltrey-pete-towshend/index.html&#39;,
- &#39;/2025/03/28/health/video/fentanyl-whole-story-marisa-digvid&#39;,
- &#39;/2025/03/28/health/video/fentanyl-whole-story-marisa-digvid&#39;,
- &#39;/2025/03/30/world/us-panama-immigration-migrants-asylum/index.html&#39;,
- &#39;/2025/03/30/world/us-panama-immigration-migrants-asylum/index.html&#39;,
- &#39;/2025/03/30/us/queer-homesteaders-tiktok-cec/index.html&#39;,
- &#39;/2025/03/30/us/queer-homesteaders-tiktok-cec/index.html&#39;,
- &#39;/travel/paro-bhutan-airport-landing-intl-hnk/index.html&#39;,
- &#39;/travel/paro-bhutan-airport-landing-intl-hnk/index.html&#39;,
- &#39;/2025/03/31/style/miles-aldridge-film-photographer-retrospective-sothebys/index.html&#39;,
- &#39;/2025/03/31/style/miles-aldridge-film-photographer-retrospective-sothebys/index.html&#39;,
- &#39;/2025/03/31/sport/min-woo-lee-houston-open-pga-tour-spt-intl/index.html&#39;,
- &#39;/2025/03/31/sport/min-woo-lee-houston-open-pga-tour-spt-intl/index.html&#39;,
- &#39;/2025/03/30/health/adults-sleep-stuffed-animals/index.html&#39;,
- &#39;/2025/03/30/health/adults-sleep-stuffed-animals/index.html&#39;,
- &#39;/2025/03/29/us/video/plane-crash-video-brooklyn-park-minnesota-digvid&#39;,
- &#39;/2025/03/29/us/video/plane-crash-video-brooklyn-park-minnesota-digvid&#39;,
- &#39;/2025/03/29/science/mars-curiosity-large-organic-molecules/index.html&#39;,
- &#39;/2025/03/29/science/mars-curiosity-large-organic-molecules/index.html&#39;,
- &#39;/2025/03/29/science/technofossils-science-newsletter-wt/index.html&#39;,
- &#39;/2025/03/28/science/fossilized-fish-16-million-meal-australia/index.html&#39;,
- &#39;/2025/03/28/science/microlightning-water-droplets-life-on-earth/index.html&#39;,
- &#39;https://www.cnn.com/travel&#39;,
- &#39;/travel/qatar-sheikh-faisal-bin-qassim-al-thani-museum/index.html&#39;,
- &#39;/travel/qatar-sheikh-faisal-bin-qassim-al-thani-museum/index.html&#39;,
- &#39;/travel/kristen-kathryn-groom-rose-manor-inn-welland-canada/index.html&#39;,
- &#39;/2025/03/26/travel/japan-hot-springs-run-low-overtourism-intl-hnk/index.html&#39;,
- &#39;/2025/03/27/travel/real-cost-airlines-heathrow-shutdown/index.html&#39;,
- &#39;/2025/03/30/business/car-dealerships-tariffs-expensive/index.html&#39;,
- &#39;/2025/03/30/business/car-dealerships-tariffs-expensive/index.html&#39;,
- &#39;/2025/03/29/business/trump-auto-prices-tariffs/index.html&#39;,
- &#39;/2025/03/30/business/wisconsins-farmers-usda-funding/index.html&#39;,
- &#39;/2025/03/30/business/canada-snowbirds-trump-trade-war-tariffs/index.html&#39;,
- &#39;/2025/03/28/style/h-and-m-ai-models-intl-scli/index.html&#39;,
- &#39;/2025/03/28/style/h-and-m-ai-models-intl-scli/index.html&#39;,
- &#39;/2025/03/27/style/chatgpt-studio-ghibli-ai-images-intl-hnk/index.html&#39;,
- &#39;/2025/03/28/style/pamela-anderson-baywatch-swimsuit-design-museum/index.html&#39;,
- &#39;/2025/03/26/style/remember-when-desperately-seeking-susan-madonna-signature-style/index.html&#39;,
- &#39;https://www.cnn.com/sport&#39;,
- &#39;/2025/03/30/sport/ilia-malinin-world-figure-skating-title-spt-intl/index.html&#39;,
- &#39;/2025/03/30/sport/ilia-malinin-world-figure-skating-title-spt-intl/index.html&#39;,
- &#39;/2025/03/29/sport/sam-ruthe-running-new-zealand-spt-intl/index.html&#39;,
- &#39;/2025/03/30/sport/timberwolves-pistons-nba-ejections-spt/index.html&#39;,
- &#39;/2025/03/29/sport/alysa-liu-figure-skating-world-championships-spt-intl/index.html&#39;,
- &#39;/2025/03/30/politics/doge-lawsuits-elon-musk-role/index.html&#39;,
- &#39;/2025/03/30/politics/doge-lawsuits-elon-musk-role/index.html&#39;,
- &#39;/2025/03/30/politics/transportation-funds-birth-marriage-rates-invs/index.html&#39;,
- &#39;/2025/03/30/politics/florida-special-elections-house-majority/index.html&#39;,
- &#39;/2025/03/30/politics/ossoff-trump-outrage-reelection-georgia/index.html&#39;,
- &#39;/2025/03/29/health/food-dye-bans-states-wellness/index.html&#39;,
- &#39;/2025/03/29/health/food-dye-bans-states-wellness/index.html&#39;,
- &#39;/2025/03/29/health/artificial-sweetener-sucralose-hunger-signals-wellness/index.html&#39;,
- &#39;/2025/03/28/health/phone-distraction-study-wellness/index.html&#39;,
- &#39;/2025/03/26/health/frequent-nighttime-urination-urologist-wellness/index.html&#39;,
- &#39;/2025/03/28/tech/apple-iphone-17-siri-upgrades-china/index.html&#39;,
- &#39;/2025/03/28/tech/apple-iphone-17-siri-upgrades-china/index.html&#39;,
- &#39;/2025/03/27/health/artificial-intelligence-diagnosis-technology-wellness/index.html&#39;,
- &#39;/2025/03/21/china/china-space-force-dogfighting-satellites-intl-hnk/index.html&#39;,
- &#39;/2025/03/28/business/elon-musk-sells-x-to-xai/index.html&#39;,
- &#39;/2025/03/28/world/gallery/myanmar-thailand-china-quake/index.html&#39;,
- &#39;/2025/03/28/world/gallery/myanmar-thailand-china-quake/index.html&#39;,
- &#39;/2025/03/27/world/gallery/photos-this-week-march-20-march-27/index.html&#39;,
- &#39;/2025/03/27/world/gallery/photos-this-week-march-20-march-27/index.html&#39;,
- &#39;/2025/03/26/travel/gallery/asias-50-best-restaurants-2025/index.html&#39;,
- &#39;/2025/03/26/travel/gallery/asias-50-best-restaurants-2025/index.html&#39;,
- &#39;/science/gallery/european-bison-photos-c2e-spc/index.html&#39;,
- &#39;/science/gallery/european-bison-photos-c2e-spc/index.html&#39;,
- &#39;/2025/03/16/politics/oval-office-gold-decor-trump/index.html&#39;,
- &#39;/2025/03/16/politics/oval-office-gold-decor-trump/index.html&#39;,
- &#39;/world/gallery/arabian-oryx-photos-c2e/index.html&#39;,
- &#39;/world/gallery/arabian-oryx-photos-c2e/index.html&#39;,
- &#39;/2025/03/28/asia/afghanistan-war-pilots-limbo-us-resettlement-intl-hnk-dst/index.html&#39;,
- &#39;/2025/03/28/asia/afghanistan-war-pilots-limbo-us-resettlement-intl-hnk-dst/index.html&#39;,
- &#39;/2025/03/29/americas/argentina-pension-milei-intl-latam/index.html&#39;,
- &#39;/2025/03/28/business/consumer-economy-recession/index.html&#39;,
- &#39;/2025/03/28/health/phone-distraction-study-wellness/index.html&#39;,
- &#39;/2025/03/28/entertainment/white-lotus-jon-gries-robert-durst/index.html&#39;,
- &#39;/2025/03/25/media/judge-bars-trump-radio-free-europe/index.html&#39;,
- &#39;/2025/03/25/entertainment/kathy-bates-100-lbs-weight-loss/index.html&#39;,
- &#39;/2025/03/24/politics/takeaways-alien-enemies-act-hearing/index.html&#39;,
- &#39;/2025/03/19/style/lost-gustav-klimt-painting-african-prince/index.html&#39;,
- &#39;/2025/03/24/politics/deportation-flights-trump-administration-state-secrets-privilege/index.html&#39;,
- &#39;/account/settings&#39;,
- &#39;/newsletters&#39;,
- &#39;/follow?iid=fw_var-nav&#39;,
- &#39;#&#39;,
- &#39;#&#39;,
- &#39;https://edition.cnn.com/live-tv&#39;,
- &#39;https://edition.cnn.com/audio&#39;,
- &#39;https://edition.cnn.com/video&#39;,
- &#39;https://edition.cnn.com/world&#39;,
- &#39;https://edition.cnn.com/world/africa&#39;,
- &#39;https://edition.cnn.com/world/americas&#39;,
- &#39;https://edition.cnn.com/world/asia&#39;,
- &#39;https://edition.cnn.com/world/australia&#39;,
- &#39;https://edition.cnn.com/world/china&#39;,
- &#39;https://edition.cnn.com/world/europe&#39;,
- &#39;https://edition.cnn.com/world/india&#39;,
- &#39;https://edition.cnn.com/world/middle-east&#39;,
- &#39;https://edition.cnn.com/world/united-kingdom&#39;,
- &#39;https://edition.cnn.com/politics&#39;,
- &#39;https://www.cnn.com/politics/supreme-court&#39;,
- &#39;https://www.cnn.com/politics/congress&#39;,
- &#39;https://www.cnn.com/politics/fact-check&#39;,
- &#39;https://www.cnn.com/election/2024&#39;,
- &#39;https://edition.cnn.com/business&#39;,
- &#39;https://edition.cnn.com/business/tech&#39;,
- &#39;https://edition.cnn.com/business/media&#39;,
- &#39;https://edition.cnn.com/business/financial-calculators&#39;,
- &#39;https://edition.cnn.com/business/videos&#39;,
- &#39;https://edition.cnn.com/markets&#39;,
- &#39;https://edition.cnn.com/markets/premarkets&#39;,
- &#39;https://edition.cnn.com/markets/after-hours&#39;,
- &#39;https://edition.cnn.com/markets/fear-and-greed&#39;,
- &#39;https://edition.cnn.com/business/investing&#39;,
- &#39;https://edition.cnn.com/business/markets-now&#39;,
- &#39;https://edition.cnn.com/business/markets/nightcap&#39;,
- &#39;https://edition.cnn.com/health&#39;,
- &#39;https://edition.cnn.com/interactive/life-but-better/&#39;,
- &#39;https://edition.cnn.com/health/life-but-better/fitness&#39;,
- &#39;https://edition.cnn.com/health/life-but-better/food&#39;,
- &#39;https://edition.cnn.com/health/life-but-better/sleep&#39;,
- &#39;https://edition.cnn.com/health/life-but-better/mindfulness&#39;,
- &#39;https://edition.cnn.com/health/life-but-better/relationships&#39;,
- &#39;https://edition.cnn.com/entertainment&#39;,
- &#39;https://edition.cnn.com/entertainment/movies&#39;,
- &#39;https://edition.cnn.com/entertainment/tv-shows&#39;,
- &#39;https://edition.cnn.com/entertainment/celebrities&#39;,
- &#39;https://edition.cnn.com/business/tech&#39;,
- &#39;https://edition.cnn.com/business/tech/innovate&#39;,
- &#39;https://edition.cnn.com/business/tech/foreseeable-future&#39;,
- &#39;https://edition.cnn.com/business/tech/mission-ahead&#39;,
- &#39;https://edition.cnn.com/business/work-transformed&#39;,
- &#39;https://edition.cnn.com/business/tech/innovative-cities&#39;,
- &#39;https://edition.cnn.com/style&#39;,
- &#39;https://edition.cnn.com/style/arts&#39;,
- &#39;https://edition.cnn.com/style/design&#39;,
- &#39;https://edition.cnn.com/style/fashion&#39;,
- &#39;https://edition.cnn.com/style/architecture&#39;,
- &#39;https://edition.cnn.com/style/luxury&#39;,
- &#39;https://edition.cnn.com/style/beauty&#39;,
- &#39;https://edition.cnn.com/style/videos&#39;,
- &#39;https://edition.cnn.com/travel&#39;,
- &#39;https://edition.cnn.com/travel/destinations&#39;,
- &#39;https://edition.cnn.com/travel/food-and-drink&#39;,
- &#39;https://edition.cnn.com/travel/stay&#39;,
- &#39;https://edition.cnn.com/travel/news&#39;,
- &#39;https://edition.cnn.com/travel/videos&#39;,
- &#39;https://edition.cnn.com/sport&#39;,
- &#39;https://edition.cnn.com/sport/football&#39;,
- &#39;https://edition.cnn.com/sport/tennis&#39;,
- &#39;https://edition.cnn.com/sport/golf&#39;,
- &#39;https://edition.cnn.com/sport/motorsport&#39;,
- &#39;https://edition.cnn.com/sport/us-sports&#39;,
- &#39;https://edition.cnn.com/sport/paris-olympics-2024&#39;,
- &#39;https://edition.cnn.com/sport/climbing&#39;,
- &#39;https://edition.cnn.com/sport/esports&#39;,
- &#39;https://bleacherreport.com/nhl&#39;,
- &#39;https://edition.cnn.com/science&#39;,
- &#39;https://edition.cnn.com/science/space&#39;,
- &#39;https://edition.cnn.com/science/life&#39;,
- &#39;https://edition.cnn.com/science/unearthed&#39;,
- &#39;https://edition.cnn.com/climate&#39;,
- &#39;https://edition.cnn.com/climate/solutions&#39;,
- &#39;https://edition.cnn.com/weather&#39;,
- &#39;https://edition.cnn.com/weather&#39;,
- &#39;https://edition.cnn.com/specials/weather/weather-video&#39;,
- &#39;https://edition.cnn.com/climate&#39;,
- &#39;https://edition.cnn.com/world/europe/ukraine&#39;,
- &#39;https://edition.cnn.com/world/middleeast/israel&#39;,
- &#39;https://edition.cnn.com/specials&#39;,
- &#39;https://edition.cnn.com/interactive/asequals&#39;,
- &#39;https://edition.cnn.com/interactive/call-to-earth&#39;,
- &#39;https://edition.cnn.com/world/freedom-project&#39;,
- &#39;https://edition.cnn.com/world/impact-your-world&#39;,
- &#39;https://edition.cnn.com/world/africa/inside-africa&#39;,
- &#39;https://edition.cnn.com/world/heroes&#39;,
- &#39;https://edition.cnn.com/videos&#39;,
- &#39;https://edition.cnn.com/live-tv&#39;,
- &#39;https://edition.cnn.com/videos/fast/cnni-fast&#39;,
- &#39;https://edition.cnn.com/specials/tv/all-shows&#39;,
- &#39;https://edition.cnn.com/cnn10&#39;,
- &#39;https://www.max.com/channel/cnn-max&#39;,
- &#39;https://edition.cnn.com/tv/schedule/cnn&#39;,
- &#39;https://edition.cnn.com/audio&#39;,
- &#39;https://edition.cnn.com/audio/podcasts/5-things&#39;,
- &#39;https://edition.cnn.com/audio/podcasts/chasing-life&#39;,
- &#39;https://edition.cnn.com/audio/podcasts/the-assignment&#39;,
- &#39;https://edition.cnn.com/audio/podcasts/one-thing&#39;,
- &#39;https://edition.cnn.com/audio/podcasts/tug-of-war&#39;,
- &#39;https://edition.cnn.com/audio/podcasts/political-briefing&#39;,
- &#39;https://edition.cnn.com/audio/podcasts/axe-files&#39;,
- &#39;https://edition.cnn.com/audio/podcasts/all-there-is-with-anderson-cooper&#39;,
- &#39;https://edition.cnn.com/audio&#39;,
- &#39;https://edition.cnn.com/games&#39;,
- &#39;https://edition.cnn.com/games/play/cnn-crossword&#39;,
- &#39;https://edition.cnn.com/games/play/jumble-crossword-daily&#39;,
- &#39;https://edition.cnn.com/games/play/photo-shuffle&#39;,
- &#39;https://edition.cnn.com/games/play/sudoblock&#39;,
- &#39;https://edition.cnn.com/games/play/sudoku&#39;,
- &#39;https://cnn.it/5thingsquiz&#39;,
- &#39;https://edition.cnn.com/about&#39;,
- &#39;https://edition.cnn.com/world/photos&#39;,
- &#39;https://edition.cnn.com/us/cnn-investigates&#39;,
- &#39;https://edition.cnn.com/profiles&#39;,
- &#39;https://edition.cnn.com/profiles/cnn-leadership&#39;,
- &#39;https://edition.cnn.com/newsletters&#39;,
- &#39;https://careers.wbd.com/cnnjobs&#39;,
- &#39;https://edition.cnn.com&#39;,
- &#39;https://edition.cnn.com/video&#39;,
- &#39;https://edition.cnn.com/audio&#39;,
- &#39;https://edition.cnn.com/live-tv&#39;,
- &#39;https://facebook.com/CNN&#39;,
- &#39;https://twitter.com/CNN&#39;,
- &#39;https://instagram.com/CNN&#39;,
- &#39;https://www.tiktok.com/@cnn?lang=en&#39;,
- &#39;https://www.linkedin.com/company/cnn&#39;,
- &#39;/account/settings&#39;,
- &#39;/newsletters&#39;,
- &#39;/follow?iid=fw_var-nav&#39;,
- &#39;#&#39;,
- &#39;#&#39;,
- &#39;https://edition.cnn.com/terms&#39;,
- &#39;https://edition.cnn.com/privacy&#39;,
- &#39;#&#39;,
- &#39;https://edition.cnn.com/ad-choices&#39;,
- &#39;https://edition.cnn.com/accessibility&#39;,
- &#39;https://edition.cnn.com/about&#39;,
- &#39;https://edition.cnn.com/newsletters&#39;,
- &#39;https://edition.cnn.com/transcripts&#39;]</pre>
-</div>
-
-</div>
-
-</div>
-
-</div>
-
 </div>
 <div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
 <div class="jp-Cell-inputWrapper">
@@ -15223,11 +14727,7 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h2 id="First-step:-Have-GPT-4o-mini-figure-out-which-links-are-relevant">First step: Have GPT-4o-mini figure out which links are relevant<a class="anchor-link" href="#First-step:-Have-GPT-4o-mini-figure-out-which-links-are-relevant">&#182;</a></h2><h3 id="Use-a-call-to-gpt-4o-mini-to-read-the-links-on-a-webpage,-and-respond-in-structured-JSON.">Use a call to gpt-4o-mini to read the links on a webpage, and respond in structured JSON.<a class="anchor-link" href="#Use-a-call-to-gpt-4o-mini-to-read-the-links-on-a-webpage,-and-respond-in-structured-JSON.">&#182;</a></h3><p>It should decide which links are relevant, and replace relative links such as "/about" with "<a href="https://company.com/about">https://company.com/about</a>".<br>
-We will use "one shot prompting" in which we provide an example of how it should respond in the prompt.</p>
-<p>This is an excellent use case for an LLM, because it requires nuanced understanding. Imagine trying to code this without LLMs by parsing and analyzing the webpage - it would be very hard!</p>
-<p>Sidenote: there is a more advanced technique called "Structured Outputs" in which we require the model to respond according to a spec. We cover this technique in Week 8 during our autonomous Agentic AI project.</p>
-
+<h2 id="STEP-3:-Use-GPT-4o-mini-to-decide-which-links-are-relevant">STEP 3: Use GPT-4o-mini to decide which links are relevant<a class="anchor-link" href="#STEP-3:-Use-GPT-4o-mini-to-decide-which-links-are-relevant">&#182;</a></h2>
 </div>
 </div>
 </div>
@@ -15236,10 +14736,10 @@ We will use "one shot prompting" in which we provide an example of how it should
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[5]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[53]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">link_system_prompt</span> <span class="o">=</span> <span class="s2">"You are provided with a list of links found on a webpage. </span><span class="se">\</span>
+<div class=" highlight hl-python"><pre><span></span><span class="n">link_system_prompt</span> <span class="o">=</span> <span class="s2">"You are provided with a list of links found on a webpage. </span><span class="se">\</span>
 <span class="s2">You are able to decide which of the links would be most relevant to include in a brochure about the company, </span><span class="se">\</span>
 <span class="s2">such as links to an About page, or a Company page, or Careers/Jobs pages.</span><span class="se">\n</span><span class="s2">"</span>
 <span class="n">link_system_prompt</span> <span class="o">+=</span> <span class="s2">"You should respond in JSON as in this example:"</span>
@@ -15258,62 +14758,15 @@ We will use "one shot prompting" in which we provide an example of how it should
 </div>
 </div>
 
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[6]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">link_system_prompt</span><span class="p">)</span>
-</pre></div>
-
-     </div>
-</div>
-</div>
-</div>
-
-<div class="jp-Cell-outputWrapper">
-<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
-</div>
-
-
-<div class="jp-OutputArea jp-Cell-outputArea">
-
-<div class="jp-OutputArea-child">
-
-    
-    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
-
-
-<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
-<pre>You are provided with a list of links found on a webpage. You are able to decide which of the links would be most relevant to include in a brochure about the company, such as links to an About page, or a Company page, or Careers/Jobs pages.
-You should respond in JSON as in this example:
-{
-    &#34;links&#34;: [
-        {&#34;type&#34;: &#34;about page&#34;, &#34;url&#34;: &#34;https://full.url/goes/here/about&#34;},
-        {&#34;type&#34;: &#34;careers page&#34;: &#34;url&#34;: &#34;https://another.full.url/careers&#34;}
-    ]
-}
-
-</pre>
-</div>
-</div>
-
-</div>
-
-</div>
-
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[7]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[54]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">get_links_user_prompt</span><span class="p">(</span><span class="n">website</span><span class="p">):</span>
+<div class=" highlight hl-python"><pre><span></span><span class="k">def</span> <span class="nf">get_links_user_prompt</span><span class="p">(</span><span class="n">website</span><span class="p">):</span>
     <span class="n">user_prompt</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"Here is the list of links on the website of </span><span class="si">{</span><span class="n">website</span><span class="o">.</span><span class="n">url</span><span class="si">}</span><span class="s2"> - "</span>
     <span class="n">user_prompt</span> <span class="o">+=</span> <span class="s2">"please decide which of these are relevant web links for a brochure about the company, respond with the full https URL in JSON format. </span><span class="se">\</span>
 <span class="s2">Do not include Terms of Service, Privacy, email links.</span><span class="se">\n</span><span class="s2">"</span>
@@ -15327,526 +14780,17 @@ You should respond in JSON as in this example:
 </div>
 </div>
 
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[8]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">get_links_user_prompt</span><span class="p">(</span><span class="n">website_details</span><span class="p">))</span>
-</pre></div>
-
-     </div>
-</div>
-</div>
-</div>
-
-<div class="jp-Cell-outputWrapper">
-<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
-</div>
-
-
-<div class="jp-OutputArea jp-Cell-outputArea">
-
-<div class="jp-OutputArea-child">
-
-    
-    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
-
-
-<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
-<pre>Here is the list of links on the website of https://edition.cnn.com/ - please decide which of these are relevant web links for a brochure about the company, respond with the full https URL in JSON format. Do not include Terms of Service, Privacy, email links.
-Links (some might be relative links):
-https://edition.cnn.com
-https://edition.cnn.com/us
-https://edition.cnn.com/world
-https://edition.cnn.com/politics
-https://edition.cnn.com/business
-https://edition.cnn.com/health
-https://edition.cnn.com/entertainment
-https://edition.cnn.com/style
-https://edition.cnn.com/travel
-https://edition.cnn.com/sports
-https://edition.cnn.com/science
-https://edition.cnn.com/climate
-https://edition.cnn.com/weather
-https://edition.cnn.com/world/europe/ukraine
-https://edition.cnn.com/world/middleeast/israel
-https://edition.cnn.com/games
-https://edition.cnn.com/us
-https://edition.cnn.com/world
-https://edition.cnn.com/politics
-https://edition.cnn.com/business
-https://edition.cnn.com/health
-https://edition.cnn.com/entertainment
-https://edition.cnn.com/style
-https://edition.cnn.com/travel
-https://edition.cnn.com/sports
-https://edition.cnn.com/science
-https://edition.cnn.com/climate
-https://edition.cnn.com/weather
-https://edition.cnn.com/world/europe/ukraine
-https://edition.cnn.com/world/middleeast/israel
-https://edition.cnn.com/games
-https://edition.cnn.com/video
-https://edition.cnn.com/audio
-https://edition.cnn.com/live-tv
-/account/settings
-/newsletters
-/follow?iid=fw_var-nav
-#
-#
-/account/settings
-/newsletters
-/follow?iid=fw_var-nav
-#
-#
-https://edition.cnn.com/live-tv
-https://edition.cnn.com/audio
-https://edition.cnn.com/video
-https://us.cnn.com?hpt=header_edition-picker
-https://edition.cnn.com?hpt=header_edition-picker
-https://arabic.cnn.com?hpt=header_edition-picker
-https://cnnespanol.cnn.com/?hpt=header_edition-picker
-https://us.cnn.com?hpt=header_edition-picker
-https://edition.cnn.com?hpt=header_edition-picker
-https://arabic.cnn.com?hpt=header_edition-picker
-https://cnnespanol.cnn.com/?hpt=header_edition-picker
-https://edition.cnn.com/world
-https://edition.cnn.com/world/africa
-https://edition.cnn.com/world/americas
-https://edition.cnn.com/world/asia
-https://edition.cnn.com/world/australia
-https://edition.cnn.com/world/china
-https://edition.cnn.com/world/europe
-https://edition.cnn.com/world/india
-https://edition.cnn.com/world/middle-east
-https://edition.cnn.com/world/united-kingdom
-https://edition.cnn.com/politics
-https://www.cnn.com/politics/supreme-court
-https://www.cnn.com/politics/congress
-https://www.cnn.com/politics/fact-check
-https://www.cnn.com/election/2024
-https://edition.cnn.com/business
-https://edition.cnn.com/business/tech
-https://edition.cnn.com/business/media
-https://edition.cnn.com/business/financial-calculators
-https://edition.cnn.com/business/videos
-https://edition.cnn.com/markets
-https://edition.cnn.com/markets/premarkets
-https://edition.cnn.com/markets/after-hours
-https://edition.cnn.com/markets/fear-and-greed
-https://edition.cnn.com/business/investing
-https://edition.cnn.com/business/markets-now
-https://edition.cnn.com/business/markets/nightcap
-https://edition.cnn.com/health
-https://edition.cnn.com/interactive/life-but-better/
-https://edition.cnn.com/health/life-but-better/fitness
-https://edition.cnn.com/health/life-but-better/food
-https://edition.cnn.com/health/life-but-better/sleep
-https://edition.cnn.com/health/life-but-better/mindfulness
-https://edition.cnn.com/health/life-but-better/relationships
-https://edition.cnn.com/entertainment
-https://edition.cnn.com/entertainment/movies
-https://edition.cnn.com/entertainment/tv-shows
-https://edition.cnn.com/entertainment/celebrities
-https://edition.cnn.com/business/tech
-https://edition.cnn.com/business/tech/innovate
-https://edition.cnn.com/business/tech/foreseeable-future
-https://edition.cnn.com/business/tech/mission-ahead
-https://edition.cnn.com/business/work-transformed
-https://edition.cnn.com/business/tech/innovative-cities
-https://edition.cnn.com/style
-https://edition.cnn.com/style/arts
-https://edition.cnn.com/style/design
-https://edition.cnn.com/style/fashion
-https://edition.cnn.com/style/architecture
-https://edition.cnn.com/style/luxury
-https://edition.cnn.com/style/beauty
-https://edition.cnn.com/style/videos
-https://edition.cnn.com/travel
-https://edition.cnn.com/travel/destinations
-https://edition.cnn.com/travel/food-and-drink
-https://edition.cnn.com/travel/stay
-https://edition.cnn.com/travel/news
-https://edition.cnn.com/travel/videos
-https://edition.cnn.com/sport
-https://edition.cnn.com/sport/football
-https://edition.cnn.com/sport/tennis
-https://edition.cnn.com/sport/golf
-https://edition.cnn.com/sport/motorsport
-https://edition.cnn.com/sport/us-sports
-https://edition.cnn.com/sport/paris-olympics-2024
-https://edition.cnn.com/sport/climbing
-https://edition.cnn.com/sport/esports
-https://bleacherreport.com/nhl
-https://edition.cnn.com/science
-https://edition.cnn.com/science/space
-https://edition.cnn.com/science/life
-https://edition.cnn.com/science/unearthed
-https://edition.cnn.com/climate
-https://edition.cnn.com/climate/solutions
-https://edition.cnn.com/weather
-https://edition.cnn.com/weather
-https://edition.cnn.com/specials/weather/weather-video
-https://edition.cnn.com/climate
-https://edition.cnn.com/world/europe/ukraine
-https://edition.cnn.com/world/middleeast/israel
-https://edition.cnn.com/specials
-https://edition.cnn.com/interactive/asequals
-https://edition.cnn.com/interactive/call-to-earth
-https://edition.cnn.com/world/freedom-project
-https://edition.cnn.com/world/impact-your-world
-https://edition.cnn.com/world/africa/inside-africa
-https://edition.cnn.com/world/heroes
-https://edition.cnn.com/videos
-https://edition.cnn.com/live-tv
-https://edition.cnn.com/videos/fast/cnni-fast
-https://edition.cnn.com/specials/tv/all-shows
-https://edition.cnn.com/cnn10
-https://www.max.com/channel/cnn-max
-https://edition.cnn.com/tv/schedule/cnn
-https://edition.cnn.com/audio
-https://edition.cnn.com/audio/podcasts/5-things
-https://edition.cnn.com/audio/podcasts/chasing-life
-https://edition.cnn.com/audio/podcasts/the-assignment
-https://edition.cnn.com/audio/podcasts/one-thing
-https://edition.cnn.com/audio/podcasts/tug-of-war
-https://edition.cnn.com/audio/podcasts/political-briefing
-https://edition.cnn.com/audio/podcasts/axe-files
-https://edition.cnn.com/audio/podcasts/all-there-is-with-anderson-cooper
-https://edition.cnn.com/audio
-https://edition.cnn.com/games
-https://edition.cnn.com/games/play/cnn-crossword
-https://edition.cnn.com/games/play/jumble-crossword-daily
-https://edition.cnn.com/games/play/photo-shuffle
-https://edition.cnn.com/games/play/sudoblock
-https://edition.cnn.com/games/play/sudoku
-https://cnn.it/5thingsquiz
-https://edition.cnn.com/about
-https://edition.cnn.com/world/photos
-https://edition.cnn.com/us/cnn-investigates
-https://edition.cnn.com/profiles
-https://edition.cnn.com/profiles/cnn-leadership
-https://edition.cnn.com/newsletters
-https://careers.wbd.com/cnnjobs
-https://facebook.com/CNN
-https://twitter.com/CNN
-https://instagram.com/CNN
-https://www.tiktok.com/@cnn?lang=en
-https://www.linkedin.com/company/cnn
-/2025/03/31/europe/spain-mine-accident-intl/index.html
-/2025/03/29/asia/before-after-myanmar-earthquake-intl-hnk/index.html
-/2025/03/31/europe/marine-le-pen-embezzlement-trial-verdict-france-intl/index.html
-/2025/03/30/europe/europe-defense-wake-up-ukraine-russia-trump-intl/index.html
-/2025/03/31/politics/trump-tariffs-liberation-day-risk/index.html
-/2025/03/31/asia/south-korea-fires-arrest-intl-hnk/index.html
-/2025/03/30/health/lorazepam-white-lotus-wellness/index.html
-/2025/03/31/politics/trump-tariffs-liberation-day-risk/index.html
-/2025/03/31/politics/trump-tariffs-liberation-day-risk/index.html
-/2025/03/31/politics/trump-tariffs-liberation-day-risk/index.html
-/2025/03/31/investing/us-stocks-trump-tariff-uncertainty/index.html
-/2025/03/30/politics/trump-third-term-methods/index.html
-/2025/03/31/politics/elon-musk-wisconsin-supreme-court/index.html
-/2025/03/31/politics/elon-musk-wisconsin-supreme-court/index.html
-/2025/03/31/europe/greendland-trump-us-pushback-intl-hnk/index.html
-/2025/03/31/europe/greendland-trump-us-pushback-intl-hnk/index.html
-/2025/03/30/politics/video/john-dean-trump-third-term-nr-digvid
-/2025/03/30/politics/video/john-dean-trump-third-term-nr-digvid
-/2025/03/31/politics/bodies-recovered-soldiers-lithuania/index.html
-/2025/03/31/politics/bodies-recovered-soldiers-lithuania/index.html
-/2025/03/31/europe/ukraine-minerals-deal-trump-zelensky-intl/index.html
-/2025/03/31/europe/ukraine-minerals-deal-trump-zelensky-intl/index.html
-/2025/03/30/politics/trump-criticizes-putin-and-threatens-adversaries-with-new-tariffs/index.html
-/2025/03/30/world/video/gps0330-putin-russia-ukraine-empire
-/2025/03/30/europe/europe-defense-wake-up-ukraine-russia-trump-intl/index.html
-https://www.cnn.com/
-https://cnn.it/3ZYU7GX
-/2025/03/30/health/lorazepam-white-lotus-wellness/index.html
-/2025/03/30/health/lorazepam-white-lotus-wellness/index.html
-/2025/03/31/business/primark-ceo-resigns/index.html
-/2025/03/31/business/primark-ceo-resigns/index.html
-/2025/03/31/food/japan-sukiya-stores-closed-rat-intl-hnk/index.html
-/2025/03/31/food/japan-sukiya-stores-closed-rat-intl-hnk/index.html
-/2025/03/31/entertainment/helen-mirren-james-bond-sexism-intl-scli/index.html
-/2025/03/31/entertainment/helen-mirren-james-bond-sexism-intl-scli/index.html
-/2025/03/31/europe/marine-le-pen-embezzlement-trial-verdict-france-intl/index.html
-/2025/03/31/europe/marine-le-pen-embezzlement-trial-verdict-france-intl/index.html
-/2025/03/31/middleeast/aid-workers-found-gaza-mass-grave-intl-hnk/index.html
-/2025/03/31/europe/moldova-russia-mp-flee-transnistria-intl/index.html
-/2025/03/30/asia/myanmar-thailand-earthquake-what-we-know-intl-hnk/index.html
-/2025/03/31/middleeast/israel-netanyahu-strategy-gaza-future-intl/index.html
-/2025/03/31/europe/spain-mine-accident-intl/index.html
-/world/africa/uganda-ziwa-rhinos-c2e-spc/index.html
-/world/africa/uganda-ziwa-rhinos-c2e-spc/index.html
-/2025/03/31/business/foodcare-angola-cassava-caterpillars-spc/index.html
-/2025/03/31/business/foodcare-angola-cassava-caterpillars-spc/index.html
-/2025/03/31/health/deep-rem-sleep-alzheimers-wellness/index.html
-/2025/03/31/health/deep-rem-sleep-alzheimers-wellness/index.html
-/2025/03/31/asia/south-korea-fires-arrest-intl-hnk/index.html
-/2025/03/31/asia/south-korea-fires-arrest-intl-hnk/index.html
-/2025/03/31/europe/tesla-cars-fire-rome-intl/index.html
-/2025/03/31/europe/tesla-cars-fire-rome-intl/index.html
-/2025/03/31/sport/domen-prevc-ski-jump-world-record-spt-intl/index.html
-/2025/03/31/sport/domen-prevc-ski-jump-world-record-spt-intl/index.html
-/2025/03/24/business/video/self-driving-cars-rural-roads-uk-blueprint-spc-digvid
-/2025/03/24/business/video/self-driving-cars-rural-roads-uk-blueprint-spc-digvid
-/2025/03/31/sport/jakub-mensik-novak-djokovic-miami-open-spt-intl/index.html
-/2025/03/31/sport/jakub-mensik-novak-djokovic-miami-open-spt-intl/index.html
-/2025/03/30/business/hyvegeo-green-desert-microalgae-charcoal-spc/index.html
-/2025/03/30/business/hyvegeo-green-desert-microalgae-charcoal-spc/index.html
-/2025/03/31/entertainment/the-who-roger-daltrey-pete-towshend/index.html
-/2025/03/31/entertainment/the-who-roger-daltrey-pete-towshend/index.html
-/2025/03/28/health/video/fentanyl-whole-story-marisa-digvid
-/2025/03/28/health/video/fentanyl-whole-story-marisa-digvid
-/2025/03/30/world/us-panama-immigration-migrants-asylum/index.html
-/2025/03/30/world/us-panama-immigration-migrants-asylum/index.html
-/2025/03/30/us/queer-homesteaders-tiktok-cec/index.html
-/2025/03/30/us/queer-homesteaders-tiktok-cec/index.html
-/travel/paro-bhutan-airport-landing-intl-hnk/index.html
-/travel/paro-bhutan-airport-landing-intl-hnk/index.html
-/2025/03/31/style/miles-aldridge-film-photographer-retrospective-sothebys/index.html
-/2025/03/31/style/miles-aldridge-film-photographer-retrospective-sothebys/index.html
-/2025/03/31/sport/min-woo-lee-houston-open-pga-tour-spt-intl/index.html
-/2025/03/31/sport/min-woo-lee-houston-open-pga-tour-spt-intl/index.html
-/2025/03/30/health/adults-sleep-stuffed-animals/index.html
-/2025/03/30/health/adults-sleep-stuffed-animals/index.html
-/2025/03/29/us/video/plane-crash-video-brooklyn-park-minnesota-digvid
-/2025/03/29/us/video/plane-crash-video-brooklyn-park-minnesota-digvid
-/2025/03/29/science/mars-curiosity-large-organic-molecules/index.html
-/2025/03/29/science/mars-curiosity-large-organic-molecules/index.html
-/2025/03/29/science/technofossils-science-newsletter-wt/index.html
-/2025/03/28/science/fossilized-fish-16-million-meal-australia/index.html
-/2025/03/28/science/microlightning-water-droplets-life-on-earth/index.html
-https://www.cnn.com/travel
-/travel/qatar-sheikh-faisal-bin-qassim-al-thani-museum/index.html
-/travel/qatar-sheikh-faisal-bin-qassim-al-thani-museum/index.html
-/travel/kristen-kathryn-groom-rose-manor-inn-welland-canada/index.html
-/2025/03/26/travel/japan-hot-springs-run-low-overtourism-intl-hnk/index.html
-/2025/03/27/travel/real-cost-airlines-heathrow-shutdown/index.html
-/2025/03/30/business/car-dealerships-tariffs-expensive/index.html
-/2025/03/30/business/car-dealerships-tariffs-expensive/index.html
-/2025/03/29/business/trump-auto-prices-tariffs/index.html
-/2025/03/30/business/wisconsins-farmers-usda-funding/index.html
-/2025/03/30/business/canada-snowbirds-trump-trade-war-tariffs/index.html
-/2025/03/28/style/h-and-m-ai-models-intl-scli/index.html
-/2025/03/28/style/h-and-m-ai-models-intl-scli/index.html
-/2025/03/27/style/chatgpt-studio-ghibli-ai-images-intl-hnk/index.html
-/2025/03/28/style/pamela-anderson-baywatch-swimsuit-design-museum/index.html
-/2025/03/26/style/remember-when-desperately-seeking-susan-madonna-signature-style/index.html
-https://www.cnn.com/sport
-/2025/03/30/sport/ilia-malinin-world-figure-skating-title-spt-intl/index.html
-/2025/03/30/sport/ilia-malinin-world-figure-skating-title-spt-intl/index.html
-/2025/03/29/sport/sam-ruthe-running-new-zealand-spt-intl/index.html
-/2025/03/30/sport/timberwolves-pistons-nba-ejections-spt/index.html
-/2025/03/29/sport/alysa-liu-figure-skating-world-championships-spt-intl/index.html
-/2025/03/30/politics/doge-lawsuits-elon-musk-role/index.html
-/2025/03/30/politics/doge-lawsuits-elon-musk-role/index.html
-/2025/03/30/politics/transportation-funds-birth-marriage-rates-invs/index.html
-/2025/03/30/politics/florida-special-elections-house-majority/index.html
-/2025/03/30/politics/ossoff-trump-outrage-reelection-georgia/index.html
-/2025/03/29/health/food-dye-bans-states-wellness/index.html
-/2025/03/29/health/food-dye-bans-states-wellness/index.html
-/2025/03/29/health/artificial-sweetener-sucralose-hunger-signals-wellness/index.html
-/2025/03/28/health/phone-distraction-study-wellness/index.html
-/2025/03/26/health/frequent-nighttime-urination-urologist-wellness/index.html
-/2025/03/28/tech/apple-iphone-17-siri-upgrades-china/index.html
-/2025/03/28/tech/apple-iphone-17-siri-upgrades-china/index.html
-/2025/03/27/health/artificial-intelligence-diagnosis-technology-wellness/index.html
-/2025/03/21/china/china-space-force-dogfighting-satellites-intl-hnk/index.html
-/2025/03/28/business/elon-musk-sells-x-to-xai/index.html
-/2025/03/28/world/gallery/myanmar-thailand-china-quake/index.html
-/2025/03/28/world/gallery/myanmar-thailand-china-quake/index.html
-/2025/03/27/world/gallery/photos-this-week-march-20-march-27/index.html
-/2025/03/27/world/gallery/photos-this-week-march-20-march-27/index.html
-/2025/03/26/travel/gallery/asias-50-best-restaurants-2025/index.html
-/2025/03/26/travel/gallery/asias-50-best-restaurants-2025/index.html
-/science/gallery/european-bison-photos-c2e-spc/index.html
-/science/gallery/european-bison-photos-c2e-spc/index.html
-/2025/03/16/politics/oval-office-gold-decor-trump/index.html
-/2025/03/16/politics/oval-office-gold-decor-trump/index.html
-/world/gallery/arabian-oryx-photos-c2e/index.html
-/world/gallery/arabian-oryx-photos-c2e/index.html
-/2025/03/28/asia/afghanistan-war-pilots-limbo-us-resettlement-intl-hnk-dst/index.html
-/2025/03/28/asia/afghanistan-war-pilots-limbo-us-resettlement-intl-hnk-dst/index.html
-/2025/03/29/americas/argentina-pension-milei-intl-latam/index.html
-/2025/03/28/business/consumer-economy-recession/index.html
-/2025/03/28/health/phone-distraction-study-wellness/index.html
-/2025/03/28/entertainment/white-lotus-jon-gries-robert-durst/index.html
-/2025/03/25/media/judge-bars-trump-radio-free-europe/index.html
-/2025/03/25/entertainment/kathy-bates-100-lbs-weight-loss/index.html
-/2025/03/24/politics/takeaways-alien-enemies-act-hearing/index.html
-/2025/03/19/style/lost-gustav-klimt-painting-african-prince/index.html
-/2025/03/24/politics/deportation-flights-trump-administration-state-secrets-privilege/index.html
-/account/settings
-/newsletters
-/follow?iid=fw_var-nav
-#
-#
-https://edition.cnn.com/live-tv
-https://edition.cnn.com/audio
-https://edition.cnn.com/video
-https://edition.cnn.com/world
-https://edition.cnn.com/world/africa
-https://edition.cnn.com/world/americas
-https://edition.cnn.com/world/asia
-https://edition.cnn.com/world/australia
-https://edition.cnn.com/world/china
-https://edition.cnn.com/world/europe
-https://edition.cnn.com/world/india
-https://edition.cnn.com/world/middle-east
-https://edition.cnn.com/world/united-kingdom
-https://edition.cnn.com/politics
-https://www.cnn.com/politics/supreme-court
-https://www.cnn.com/politics/congress
-https://www.cnn.com/politics/fact-check
-https://www.cnn.com/election/2024
-https://edition.cnn.com/business
-https://edition.cnn.com/business/tech
-https://edition.cnn.com/business/media
-https://edition.cnn.com/business/financial-calculators
-https://edition.cnn.com/business/videos
-https://edition.cnn.com/markets
-https://edition.cnn.com/markets/premarkets
-https://edition.cnn.com/markets/after-hours
-https://edition.cnn.com/markets/fear-and-greed
-https://edition.cnn.com/business/investing
-https://edition.cnn.com/business/markets-now
-https://edition.cnn.com/business/markets/nightcap
-https://edition.cnn.com/health
-https://edition.cnn.com/interactive/life-but-better/
-https://edition.cnn.com/health/life-but-better/fitness
-https://edition.cnn.com/health/life-but-better/food
-https://edition.cnn.com/health/life-but-better/sleep
-https://edition.cnn.com/health/life-but-better/mindfulness
-https://edition.cnn.com/health/life-but-better/relationships
-https://edition.cnn.com/entertainment
-https://edition.cnn.com/entertainment/movies
-https://edition.cnn.com/entertainment/tv-shows
-https://edition.cnn.com/entertainment/celebrities
-https://edition.cnn.com/business/tech
-https://edition.cnn.com/business/tech/innovate
-https://edition.cnn.com/business/tech/foreseeable-future
-https://edition.cnn.com/business/tech/mission-ahead
-https://edition.cnn.com/business/work-transformed
-https://edition.cnn.com/business/tech/innovative-cities
-https://edition.cnn.com/style
-https://edition.cnn.com/style/arts
-https://edition.cnn.com/style/design
-https://edition.cnn.com/style/fashion
-https://edition.cnn.com/style/architecture
-https://edition.cnn.com/style/luxury
-https://edition.cnn.com/style/beauty
-https://edition.cnn.com/style/videos
-https://edition.cnn.com/travel
-https://edition.cnn.com/travel/destinations
-https://edition.cnn.com/travel/food-and-drink
-https://edition.cnn.com/travel/stay
-https://edition.cnn.com/travel/news
-https://edition.cnn.com/travel/videos
-https://edition.cnn.com/sport
-https://edition.cnn.com/sport/football
-https://edition.cnn.com/sport/tennis
-https://edition.cnn.com/sport/golf
-https://edition.cnn.com/sport/motorsport
-https://edition.cnn.com/sport/us-sports
-https://edition.cnn.com/sport/paris-olympics-2024
-https://edition.cnn.com/sport/climbing
-https://edition.cnn.com/sport/esports
-https://bleacherreport.com/nhl
-https://edition.cnn.com/science
-https://edition.cnn.com/science/space
-https://edition.cnn.com/science/life
-https://edition.cnn.com/science/unearthed
-https://edition.cnn.com/climate
-https://edition.cnn.com/climate/solutions
-https://edition.cnn.com/weather
-https://edition.cnn.com/weather
-https://edition.cnn.com/specials/weather/weather-video
-https://edition.cnn.com/climate
-https://edition.cnn.com/world/europe/ukraine
-https://edition.cnn.com/world/middleeast/israel
-https://edition.cnn.com/specials
-https://edition.cnn.com/interactive/asequals
-https://edition.cnn.com/interactive/call-to-earth
-https://edition.cnn.com/world/freedom-project
-https://edition.cnn.com/world/impact-your-world
-https://edition.cnn.com/world/africa/inside-africa
-https://edition.cnn.com/world/heroes
-https://edition.cnn.com/videos
-https://edition.cnn.com/live-tv
-https://edition.cnn.com/videos/fast/cnni-fast
-https://edition.cnn.com/specials/tv/all-shows
-https://edition.cnn.com/cnn10
-https://www.max.com/channel/cnn-max
-https://edition.cnn.com/tv/schedule/cnn
-https://edition.cnn.com/audio
-https://edition.cnn.com/audio/podcasts/5-things
-https://edition.cnn.com/audio/podcasts/chasing-life
-https://edition.cnn.com/audio/podcasts/the-assignment
-https://edition.cnn.com/audio/podcasts/one-thing
-https://edition.cnn.com/audio/podcasts/tug-of-war
-https://edition.cnn.com/audio/podcasts/political-briefing
-https://edition.cnn.com/audio/podcasts/axe-files
-https://edition.cnn.com/audio/podcasts/all-there-is-with-anderson-cooper
-https://edition.cnn.com/audio
-https://edition.cnn.com/games
-https://edition.cnn.com/games/play/cnn-crossword
-https://edition.cnn.com/games/play/jumble-crossword-daily
-https://edition.cnn.com/games/play/photo-shuffle
-https://edition.cnn.com/games/play/sudoblock
-https://edition.cnn.com/games/play/sudoku
-https://cnn.it/5thingsquiz
-https://edition.cnn.com/about
-https://edition.cnn.com/world/photos
-https://edition.cnn.com/us/cnn-investigates
-https://edition.cnn.com/profiles
-https://edition.cnn.com/profiles/cnn-leadership
-https://edition.cnn.com/newsletters
-https://careers.wbd.com/cnnjobs
-https://edition.cnn.com
-https://edition.cnn.com/video
-https://edition.cnn.com/audio
-https://edition.cnn.com/live-tv
-https://facebook.com/CNN
-https://twitter.com/CNN
-https://instagram.com/CNN
-https://www.tiktok.com/@cnn?lang=en
-https://www.linkedin.com/company/cnn
-/account/settings
-/newsletters
-/follow?iid=fw_var-nav
-#
-#
-https://edition.cnn.com/terms
-https://edition.cnn.com/privacy
-#
-https://edition.cnn.com/ad-choices
-https://edition.cnn.com/accessibility
-https://edition.cnn.com/about
-https://edition.cnn.com/newsletters
-https://edition.cnn.com/transcripts
-</pre>
-</div>
-</div>
-
-</div>
-
-</div>
-
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[9]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[55]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">get_links</span><span class="p">(</span><span class="n">url</span><span class="p">):</span>
+<div class=" highlight hl-python"><pre><span></span><span class="k">def</span> <span class="nf">get_filtered_links</span><span class="p">(</span><span class="n">url</span><span class="p">):</span>
     <span class="n">website</span> <span class="o">=</span> <span class="n">Website</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
-    <span class="n">response</span> <span class="o">=</span> <span class="n">openai</span><span class="o">.</span><span class="n">chat</span><span class="o">.</span><span class="n">completions</span><span class="o">.</span><span class="n">create</span><span class="p">(</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">chat</span><span class="o">.</span><span class="n">completions</span><span class="o">.</span><span class="n">create</span><span class="p">(</span>
         <span class="n">model</span><span class="o">=</span><span class="n">MODEL</span><span class="p">,</span>
         <span class="n">messages</span><span class="o">=</span><span class="p">[</span>
             <span class="p">{</span><span class="s2">"role"</span><span class="p">:</span> <span class="s2">"system"</span><span class="p">,</span> <span class="s2">"content"</span><span class="p">:</span> <span class="n">link_system_prompt</span><span class="p">},</span>
@@ -15863,49 +14807,6 @@ https://edition.cnn.com/transcripts
 </div>
 </div>
 
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[10]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">get_links</span><span class="p">(</span><span class="n">website_url</span><span class="p">)</span>
-</pre></div>
-
-     </div>
-</div>
-</div>
-</div>
-
-<div class="jp-Cell-outputWrapper">
-<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
-</div>
-
-
-<div class="jp-OutputArea jp-Cell-outputArea">
-
-<div class="jp-OutputArea-child">
-
-    
-    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[10]:</div>
-
-
-
-
-<div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain">
-<pre>{&#39;links&#39;: [{&#39;type&#39;: &#39;about page&#39;, &#39;url&#39;: &#39;https://edition.cnn.com/about&#39;},
-  {&#39;type&#39;: &#39;careers page&#39;, &#39;url&#39;: &#39;https://careers.wbd.com/cnnjobs&#39;},
-  {&#39;type&#39;: &#39;company page&#39;, &#39;url&#39;: &#39;https://edition.cnn.com&#39;}]}</pre>
-</div>
-
-</div>
-
-</div>
-
-</div>
-
 </div>
 <div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
 <div class="jp-Cell-inputWrapper">
@@ -15913,8 +14814,7 @@ https://edition.cnn.com/transcripts
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h2 id="Second-step:-make-the-brochure!">Second step: make the brochure!<a class="anchor-link" href="#Second-step:-make-the-brochure!">&#182;</a></h2><p>Assemble all the details into another prompt to GPT4-o</p>
-
+<h2 id="STEP-4:-Collect-all-content-from-landing-page-+-relevant-links">STEP 4: Collect all content from landing page + relevant links<a class="anchor-link" href="#STEP-4:-Collect-all-content-from-landing-page-+-relevant-links">&#182;</a></h2>
 </div>
 </div>
 </div>
@@ -15923,14 +14823,15 @@ https://edition.cnn.com/transcripts
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[11]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[56]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">get_all_details</span><span class="p">(</span><span class="n">url</span><span class="p">):</span>
+<div class=" highlight hl-python"><pre><span></span><span class="k">def</span> <span class="nf">get_all_details</span><span class="p">(</span><span class="n">url</span><span class="p">):</span>
     <span class="n">result</span> <span class="o">=</span> <span class="s2">"Landing page:</span><span class="se">\n</span><span class="s2">"</span>
-    <span class="n">result</span> <span class="o">+=</span> <span class="n">Website</span><span class="p">(</span><span class="n">url</span><span class="p">)</span><span class="o">.</span><span class="n">get_contents</span><span class="p">()</span>
-    <span class="n">links</span> <span class="o">=</span> <span class="n">get_links</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">"Found links:"</span><span class="p">,</span> <span class="n">links</span><span class="p">)</span>
+    <span class="n">landing_page</span> <span class="o">=</span> <span class="n">Website</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+    <span class="n">result</span> <span class="o">+=</span> <span class="n">landing_page</span><span class="o">.</span><span class="n">get_contents</span><span class="p">()</span>
+
+    <span class="n">links</span> <span class="o">=</span> <span class="n">get_filtered_links</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
     <span class="k">for</span> <span class="n">link</span> <span class="ow">in</span> <span class="n">links</span><span class="p">[</span><span class="s2">"links"</span><span class="p">]:</span>
         <span class="n">result</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">"</span><span class="se">\n\n</span><span class="si">{</span><span class="n">link</span><span class="p">[</span><span class="s1">'type'</span><span class="p">]</span><span class="si">}</span><span class="se">\n</span><span class="s2">"</span>
         <span class="n">result</span> <span class="o">+=</span> <span class="n">Website</span><span class="p">(</span><span class="n">link</span><span class="p">[</span><span class="s2">"url"</span><span class="p">])</span><span class="o">.</span><span class="n">get_contents</span><span class="p">()</span>
@@ -15942,1918 +14843,40 @@ https://edition.cnn.com/transcripts
 </div>
 </div>
 
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[12]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">get_all_details</span><span class="p">(</span><span class="n">website_url</span><span class="p">))</span>
-</pre></div>
-
-     </div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h2 id="STEP-5:-Brochure-generation-prompt">STEP 5: Brochure generation prompt<a class="anchor-link" href="#STEP-5:-Brochure-generation-prompt">&#182;</a></h2>
 </div>
 </div>
 </div>
-
-<div class="jp-Cell-outputWrapper">
-<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
-</div>
-
-
-<div class="jp-OutputArea jp-Cell-outputArea">
-
-<div class="jp-OutputArea-child">
-
-    
-    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
-
-
-<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
-<pre>Found links: {&#39;links&#39;: [{&#39;type&#39;: &#39;about page&#39;, &#39;url&#39;: &#39;https://edition.cnn.com/about&#39;}, {&#39;type&#39;: &#39;careers page&#39;, &#39;url&#39;: &#39;https://careers.wbd.com/cnnjobs&#39;}, {&#39;type&#39;: &#39;company page&#39;, &#39;url&#39;: &#39;https://edition.cnn.com&#39;}]}
-Landing page:
-Webpage Title:
-Breaking News, Latest News and Videos | CNN
-Webpage Contents:
-CNN values your feedback
-1. How relevant is this ad to you?
-2. Did you encounter any technical issues?
-Video player was slow to load content
-Video content never loaded
-Ad froze or did not finish loading
-Video content did not start after ad
-Audio on ad was too loud
-Other issues
-Ad never loaded
-Ad prevented/slowed the page from loading
-Content moved around while ad loaded
-Ad was repetitive to ads I&#39;ve seen previously
-Other issues
-Cancel
-Submit
-Thank You!
-Your effort and contribution in providing this feedback is much
-                                        appreciated.
-Close
-Ad Feedback
-Close icon
-US
-World
-Politics
-Business
-Health
-Entertainment
-Style
-Travel
-Sports
-Science
-Climate
-Weather
-Ukraine-Russia War
-Israel-Hamas War
-Games
-More
-US
-World
-Politics
-Business
-Health
-Entertainment
-Style
-Travel
-Sports
-Science
-Climate
-Weather
-Ukraine-Russia War
-Israel-Hamas War
-Games
-Watch
-Listen
-Live TV
-Subscribe
-Sign in
-My Account
-Settings
-Newsletters
-Topics You Follow
-Sign Out
-Your CNN account
-Sign in to your CNN account
-Sign in
-My Account
-Settings
-Newsletters
-Topics You Follow
-Sign Out
-Your CNN account
-Sign in to your CNN account
-Live TV
-Listen
-Watch
-Edition
-US
-International
-Arabic
-Espa√±ol
-Edition
-US
-International
-Arabic
-Espa√±ol
-World
-Africa
-Americas
-Asia
-Australia
-China
-Europe
-India
-Middle East
-United Kingdom
-US Politics
-SCOTUS
-Congress
-Facts First
-2024 Elections
-Business
-Tech
-Media
-Calculators
-Videos
-Markets
-Pre-markets
-After-Hours
-Fear &amp; Greed
-Investing
-Markets Now
-Nightcap
-Health
-Life, But Better
-Fitness
-Food
-Sleep
-Mindfulness
-Relationships
-Entertainment
-Movies
-Television
-Celebrity
-Tech
-Innovate
-Foreseeable Future
-Mission: Ahead
-Work Transformed
-Innovative Cities
-Style
-Arts
-Design
-Fashion
-Architecture
-Luxury
-Beauty
-Video
-Travel
-Destinations
-Food &amp; Drink
-Stay
-News
-Videos
-Sports
-Football
-Tennis
-Golf
-Motorsport
-US Sports
-Olympics
-Climbing
-Esports
-Hockey
-Science
-Space
-Life
-Unearthed
-Climate
-Solutions
-Weather
-Weather
-Video
-Climate
-Ukraine-Russia War
-Israel-Hamas War
-Features
-As Equals
-Call to Earth
-Freedom Project
-Impact Your World
-Inside Africa
-CNN Heroes
-Watch
-Live TV
-CNN Fast
-Shows A-Z
-CNN10
-CNN Max
-CNN TV Schedules
-Listen
-CNN 5 Things
-Chasing Life with Dr. Sanjay Gupta
-The Assignment with Audie Cornish
-One Thing
-Tug of War
-CNN Political Briefing
-The Axe Files
-All There Is with Anderson Cooper
-All CNN Audio podcasts
-Games
-CNN Crossword
-Jumble Crossword
-Photo Shuffle
-Sudoblock
-Sudoku
-5 Things Quiz
-About CNN
-Photos
-Investigations
-CNN Profiles
-CNN Leadership
-CNN Newsletters
-Work for CNN
-Follow CNN
-Spain mine accident
-Myanmar earthquake
-Marine Le Pen
-Europe‚Äôs military wake-up
-Trump‚Äôs tariff gamble
-South Korea wildfire
-What to know about lorazepam
-Trump is set to gamble his presidency, the economy and Americans&#39; finances
-Show all
-•
-Analysis
-Analysis
-Justin Sullivan/Getty Images
-Analysis
-US president is asking everyone to buy into a strategy that promises future benefits but requires sacrifice for years
-Stocks are plunging as Wall Street tires of Trump‚Äôs tariffs
-Trump says he‚Äôs ‚Äònot joking‚Äô about seeking a third term
-Jamie Kelter Davis/Bloomberg/Getty Images
-Elon Musk goes all in on Wisconsin Supreme Court race
-Leon Neal/Getty Images
-Greenland‚Äôs new leader has a message for Trump
-•
-Video
-1:48
-CNN
-Video
-John Dean reacts to Trump third term comments
-1:48
-Mindaugas Kulbis/AP
-Bodies of three out of four US soldiers whose vehicle was submerged in Lithuania are recovered
-Kevin Lamarque/Reuters
-Trump accuses Ukraine‚Äôs Zelensky of ‚Äòtrying to back out‚Äô of proposed minerals deal
-Trump criticizes Putin and threatens adversaries with new tariffs as he barrels toward April 2 deadline
-Video
-Fareed‚Äôs take: Putin is trying to rebuild Russia‚Äôs Tsarist empire
-5:52
-‚ÄòPATHETIC‚Äô Europe is breaking military taboos
-CNN Fast
-- Source:
-CNN
-Catch up on today‚Äôs global news
-CNN
-What should you know about the powerful drug Lorazepam
-Paul Faith/AFP/Getty Images
-Primark CEO resigns after ‚Äòerror of judgment‚Äô
-Richard A. Brooks/AFP/Getty Images
-Popular Japanese beef bowl chain shuts after rat and bug found in food
-Joe Maher/Getty Images
-Helen Mirren doesn‚Äôt want next James Bond to be a woman
-Ad Feedback
-More top stories
-Stephanie Lecocq/Reuters
-French far-right leader Le Pen banned from 2027 election after guilty verdict
-Bodies of missing aid workers found in Gaza ‚Äòmass grave‚Äô following Israeli attacks
-Moldova says Russia helped pro-Moscow MP flee long jail sentence
-Golden window to reach victims buried alive closing after quake kills more than 2,000 in Myanmar and Thailand
-Israel again expands Gaza war as Netanyahu vows he‚Äôs changing the Middle East. The endgame is unclear
-2 dead, 4 missing in Spain mine accident
-Amanda Voisard for The Washington Post/Getty Images
-Rhinos were hunted to extinction in this country, but a recent baby boom brings hope
-FoodCare
-This Angolan company is finding global buyers for its cassava and caterpillars
-cyano66/iStockphoto/Getty Images
-Alzheimer‚Äôs risk rises when amount of deep sleep falls, study suggests
-Ad Feedback
-Chris Jung/NURPHO/AP
-Man caring for ancestors‚Äô grave may have ignited South Korea wildfire: police
-Mar 31, 2025
-Alessandro Serrano/Shutterstock
-Fire at Tesla dealership near Rome destroys 17 cars
-Mar 31, 2025
-Borut Zivulovic/Reuters
-Domen Prevc breaks world record with 254.5-meter ski jump
-Mar 31, 2025
-CNN
-Video
-Driverless car takes on winding country roads at 60mph
-2:39
-Mar 24, 2025
-Ad Feedback
-Rebecca Blackwell/AP
-Unseeded teen denies idol Novak Djokovic his 100th career title
-HyveGeo
-This startup wants to green the desert using microalgae and agricultural waste
-Michal Augustini/Shutterstock
-The Who get real about octogenarian rock star life
-•
-Video
-2:24
-Marisa Delles
-Video
-‚ÄòWhat kind of piece of sh*t uses when pregnant?‚Äô: Young mom speaks out on fentanyl addiction
-2:24
-Omar Jimenez/CNN
-She was expelled from the United States, but still thought America would help. She was wrong
-The Evergreen Girls LLC
-Queer and trans homesteaders are conquering the social media frontier
-mtcurado/iStockphoto/Getty Images
-This airport landing is so challenging only 50 pilots are qualified to do it
-Miles Aldridge Courtesy Sotheby‚Äôs
-A photographer makes the case for shooting with film over digital
-Kenneth Richmond/Getty Images
-Min Woo Lee wins Houston Open for first PGA Tour title, joins exclusive company with sister
-Antonio_Diaz/iStockphoto/Getty Images
-Adults can sleep with stuffed animals, too. It might even be a good thing, experts say
-•
-Video
-0:48
-Cindy and Curt Leitschuh
-Video
-Ring camera captures the moment a small plane crashes into a home
-0:48
-Ad Feedback
-Featured Sections
-Space and science
-NASA
-Curiosity rover makes ‚Äòarguably the most exciting organic detection to date on Mars‚Äô
-Wind turbine parts may be giant technofossils that puzzle future scientists
-Fossilized fish up to 16 million years old found in Australia, with last meal still intact
-Scientists redid an experiment that showed how life on Earth could have started. They found a new possibility
-Global Travel
-Show all
-Mustafa Abumunes/AFP/Getty Images
-Why there‚Äôs a huge collection of vintage cars stored in the middle of the desert
-Two sisters with no hospitality experience bought a century-old inn. Here‚Äôs how it worked out
-Japan‚Äôs natural hot springs are running low. Overtourism is to blame
-Flight chaos and lost profits: The real cost for airlines of the Heathrow shutdown
-Ad Feedback
-Global Business
-Frederic J. Brown/AFP/Getty Images
-Looming car tariffs have some Americans rushing to dealerships to avoid sticker shock
-Trump says he ‚Äòcouldn‚Äôt care less‚Äô if auto prices rise because of tariffs
-‚ÄòA huge blow‚Äô: USDA cuts threaten to throw Wisconsin‚Äôs local food supply into disarray
-Canada‚Äôs snowbirds reconsider calling the US their second home
-Style
-Richard Baker/In Pictures/Getty Images
-Fashion giant H&amp;M plans to use AI clones of its human models. Not everyone is happy
-Viral Studio Ghibli-style AI images showcase power ‚Äì and copyright concerns ‚Äì of ChatGPT update
-Pamela Anderson, ‚Äòexplosive‚Äô bikinis and the changing tides of swimwear style
-The cultural impact of Madonna and the 1985 film ‚ÄòDesperately Seeking Susan‚Äô
-SPORT
-Show all
-Maddie Meyer/Getty Images
-US star Ilia Malinin defends his world figure skating title with breathtaking performance
-The world‚Äôs fastest 15-year-old sets his sights on Olympic gold
-Seven ejected following scuffle in Minnesota Timberwolves-Detroit Pistons game
-Alysa Liu becomes first American woman in 19 years to win figure skating world title
-Ad Feedback
-US Politics
-Samuel Corum/Sipa/Getty Images
-Is DOGE actually an agency? The answer could have major ramifications
-CNN Investigates
-Red states could benefit as Trump‚Äôs transportation secretary prioritizes funds based on birth and marriage rates
-Florida‚Äôs special elections give Trump, GOP leaders more reasons to sweat slim House majority
-Vulnerable Senate Democrat Ossoff seeks to channel Trump outrage on tough road to reelection
-health and wellness
-DenisMArt/iStockphoto/Getty Images
-Over half of US states are trying to eliminate food dyes. Here‚Äôs what you can do now
-Artificial sweetener found in diet drinks linked to brain changes that increase appetite, study finds
-Your phone may not be the problem when it comes to distraction, study says
-Here‚Äôs why you keep waking up to pee in the middle of the night
-Tech
-•
-Analysis
-Analysis
-Kevin Carter/Getty Images
-Analysis
-Apple needs a new reason to get you to buy a new iPhone. It may have one
-Doctor explains how artificial intelligence is already being deployed in medical care
-China is practicing ‚Äòdogfighting‚Äô with satellites as it ramps up space capabilities: US Space Force
-Elon Musk says he sold X to his AI company
-Photos You Should See
-•
-Gallery
-Gallery
-Reuters
-Gallery
-Deadly earthquake strikes Myanmar, Thailand and China
-•
-Gallery
-Gallery
-Sean M. Haffey/Getty Images
-Gallery
-The week in 34 photos
-•
-Gallery
-Gallery
-Courtesy The World&#39;s 50 Best
-Gallery
-Asia‚Äôs 50 best restaurants for 2025 revealed
-•
-Gallery
-Gallery
-Thomas Lohnes/Getty Images
-Gallery
-Europe‚Äôs largest wild animal comes back from the brink
-Bonnie Cash/Bloomberg/Getty Images
-Flags, figurines and gold everywhere: Trump transforms the Oval Office into a gilded gallery
-•
-Gallery
-Gallery
-Karim Sahib/AFP/Getty Images
-Gallery
-Arabian oryx: Back from the brink
-Ad Feedback
-In Case You Missed It
-Javed Iqbal/CNN
-‚ÄòGet us out of here‚Äô: Anti-migrant policies leave Afghan pilots fearing for their lives
-She was set to retire in August, but Milei‚Äôs government has dashed her hopes
-Analysis
-Why the American consumer is fed up
-This one thing might cut how much you use your phone in half, study finds
-‚ÄòWhite Lotus‚Äô villain Jon Gries reveals the true crimes that inspired his twisty take on Greg/Gary
-Judge temporarily halts Trump from canceling Radio Free Europe, handing embattled broadcasters a lifeline
-Kathy Bates says work feels ‚Äòmagnificent‚Äô after losing 100 lbs
-Takeaways from federal appeals court hearing on Trump‚Äôs use of the Alien Enemies Act
-A long-lost Klimt painting of an African prince goes on show
-Trump administration invoking state secrets privilege over deportation flight information sought by federal judge
-Subscribe
-Sign in
-My Account
-Settings
-Newsletters
-Topics You Follow
-Sign Out
-Your CNN account
-Sign in to your CNN account
-Live TV
-Listen
-Watch
-World
-Africa
-Americas
-Asia
-Australia
-China
-Europe
-India
-Middle East
-United Kingdom
-US Politics
-SCOTUS
-Congress
-Facts First
-2024 Elections
-Business
-Tech
-Media
-Calculators
-Videos
-Markets
-Pre-markets
-After-Hours
-Fear &amp; Greed
-Investing
-Markets Now
-Nightcap
-Health
-Life, But Better
-Fitness
-Food
-Sleep
-Mindfulness
-Relationships
-Entertainment
-Movies
-Television
-Celebrity
-Tech
-Innovate
-Foreseeable Future
-Mission: Ahead
-Work Transformed
-Innovative Cities
-Style
-Arts
-Design
-Fashion
-Architecture
-Luxury
-Beauty
-Video
-Travel
-Destinations
-Food &amp; Drink
-Stay
-News
-Videos
-Sports
-Football
-Tennis
-Golf
-Motorsport
-US Sports
-Olympics
-Climbing
-Esports
-Hockey
-Science
-Space
-Life
-Unearthed
-Climate
-Solutions
-Weather
-Weather
-Video
-Climate
-Ukraine-Russia War
-Israel-Hamas War
-Features
-As Equals
-Call to Earth
-Freedom Project
-Impact Your World
-Inside Africa
-CNN Heroes
-Watch
-Live TV
-CNN Fast
-Shows A-Z
-CNN10
-CNN Max
-CNN TV Schedules
-Listen
-CNN 5 Things
-Chasing Life with Dr. Sanjay Gupta
-The Assignment with Audie Cornish
-One Thing
-Tug of War
-CNN Political Briefing
-The Axe Files
-All There Is with Anderson Cooper
-All CNN Audio podcasts
-Games
-CNN Crossword
-Jumble Crossword
-Photo Shuffle
-Sudoblock
-Sudoku
-5 Things Quiz
-About CNN
-Photos
-Investigations
-CNN Profiles
-CNN Leadership
-CNN Newsletters
-Work for CNN
-Watch
-Listen
-Live TV
-Follow CNN
-Subscribe
-Sign in
-My Account
-Settings
-Newsletters
-Topics You Follow
-Sign Out
-Your CNN account
-Sign in to your CNN account
-Terms of Use
-Privacy Policy
-Ad Choices
-Accessibility &amp; CC
-About
-Newsletters
-Transcripts
-© 2025 Cable News Network. A Warner Bros. Discovery Company. All Rights Reserved.
-CNN Sans ‚Ñ¢ &amp; ¬© 2016 Cable News Network.
-
-
-
-about page
-Webpage Title:
-ABOUT CNN DIGITAL | CNN
-Webpage Contents:
-Close icon
-US
-World
-Politics
-Business
-Health
-Entertainment
-Style
-Travel
-Sports
-Science
-Climate
-Weather
-Ukraine-Russia War
-Israel-Hamas War
-Underscored
-Games
-More
-US
-World
-Politics
-Business
-Health
-Entertainment
-Style
-Travel
-Sports
-Science
-Climate
-Weather
-Ukraine-Russia War
-Israel-Hamas War
-Underscored
-Games
-Watch
-Listen
-Live TV
-Subscribe
-Sign in
-My Account
-Settings
-Newsletters
-Topics You Follow
-Sign Out
-Your CNN account
-Sign in to your CNN account
-Sign in
-My Account
-Settings
-Newsletters
-Topics You Follow
-Sign Out
-Your CNN account
-Sign in to your CNN account
-Live TV
-Listen
-Watch
-Edition
-US
-International
-Arabic
-Espa√±ol
-Edition
-US
-International
-Arabic
-Espa√±ol
-US
-Crime + Justice
-World
-Africa
-Americas
-Asia
-Australia
-China
-Europe
-India
-Middle East
-United Kingdom
-Politics
-SCOTUS
-Congress
-Facts First
-2024 Elections
-Business
-Tech
-Media
-Calculators
-Videos
-Markets
-Pre-markets
-After-Hours
-Fear &amp; Greed
-Investing
-Markets Now
-Nightcap
-Health
-Life, But Better
-Fitness
-Food
-Sleep
-Mindfulness
-Relationships
-Entertainment
-Movies
-Television
-Celebrity
-Tech
-Innovate
-Foreseeable Future
-Mission: Ahead
-Work Transformed
-Innovative Cities
-Style
-Arts
-Design
-Fashion
-Architecture
-Luxury
-Beauty
-Video
-Travel
-Destinations
-Food &amp; Drink
-Stay
-Videos
-Sports
-Pro Football
-College Football
-Basketball
-Baseball
-Soccer
-Olympics
-Hockey
-Science
-Space
-Life
-Unearthed
-Climate
-Solutions
-Weather
-Weather
-Video
-Climate
-Ukraine-Russia War
-Israel-Hamas War
-Watch
-Live TV
-CNN Headlines
-CNN Shorts
-Shows A-Z
-CNN10
-CNN Max
-CNN TV Schedules
-FlashDocs
-Listen
-CNN 5 Things
-Chasing Life with Dr. Sanjay Gupta
-The Assignment with Audie Cornish
-One Thing
-Tug of War
-CNN Political Briefing
-The Axe Files
-All There Is with Anderson Cooper
-All CNN Audio podcasts
-CNN Underscored
-Electronics
-Fashion
-Beauty
-Health &amp; Fitness
-Home
-Reviews
-Deals
-Gifts
-Travel
-Outdoors
-Pets
-Games
-CNN Crossword
-Jumble Crossword
-Photo Shuffle
-Sudoblock
-Sudoku
-5 Things Quiz
-About CNN
-Subscribe
-Photos
-Investigations
-CNN Profiles
-CNN Leadership
-CNN Newsletters
-Work for CNN
-Follow CNN
-About CNN Worldwide
-CNN Worldwide is the most honored brand in cable news, reaching more individuals on television and online than any other cable news organization in the United States.
-Globally, people across the world can watch CNN International, which is widely distributed in over 200 countries and territories. CNN Digital is the #1 online news
-destination, with more unique visitors than any other news source. CNN‚Äôs award-winning portfolio includes non-scripted programming from CNN Original Series and
-CNN Films for broadcast, streaming and distribution across multiple platforms. CNN programming can be found on CNN, CNN International and CNN en Espa√±ol channels,
-on the CNN Originals hub on discovery+, on Max and for pay TV subscription via CNN.com, CNN apps and cable operator platforms. Additionally, CNN Newsource is
-the world‚Äôs most extensively utilized news service partnering with over 1,000 local and international news organizations around the world. CNN is a division of Warner Bros.
-Discovery.
-CNN‚Äôs Mission
-To Inform, Engage and Empower the World
-We are truth-seekers and storytellers.
-We are journalists, designers and technologists, united by a mission to inform, engage and empower the world.
-We bear witness to history as it unfolds and explain not just what happened, but why, and what it means to you.
-Our products and platforms take you to the farthest corners of the world, and they bring the world to you, delivering content and services that enrich your lives, your families and your communities.
-We are available on more screens in more places than any other news source.
-We stand for excellence in our journalism and our products.
-We are committed to serving you.
-We are CNN.
-What‚Äôs On
-The full rundown of all
-CNN daily programming
-.
-Who‚Äôs On
-Bios on all of¬†
-CNN‚Äôs anchors, correspondents and executives.
-CNN‚Äôs Parent Company
-Warner Bros. Discovery, Inc.
-CNN AI Guiding Principles
-We are committed to the utmost journalistic integrity and accuracy
-Any use of AI ‚Äì generative or otherwise ‚Äì will adhere to CNN‚Äôs values and will not undermine the trust audiences have in our journalism.
-Accuracy and fair representation will remain our top priority. We will collaborate with organizations that have similar AI ethical values.
-We are innovators and experimenters
-We are a company with a legacy of using new technologies to advance our journalism.
-We will invest in AI technology to improve our user experience, boost productivity, explore new creative opportunities, and combat misinformation and disinformation.
-We have human oversight and guardrails
-Our employees have oversight and responsibility for the AI systems and tools used, and the content they produce.
-We undertake rigorous due diligence to evaluate our internally built tools and potential partners to ensure they adhere to both CNN and Warner Bros. Discovery‚Äôs AI principles.
-We are transparent
-We clearly signify to our users and audiences when they are seeing, hearing or reading AI content.
-We are committed to inclusion
-We are committed to inclusive representation when building or utilizing innovative technologies such as AI tools and services.
-We believe the content created by our world-class journalists is unparalleled and valuable
-AI presents new opportunities to both protect the intellectual property of our content and commercially support our business.
-Services
-CNN Mobile Services
-CNN.com content is now available through your mobile phone. With CNN mobile services, you can read up-to-the-minute news stories with color photos, watch live, streaming video or the latest Video On Demand clips and receive CNN Breaking News text alerts. No matter where your on-the-go lifestyle takes you, CNN brings the news directly to you.
-E-mail Newsletters
-Be the first to know with a variety of e-mail news services. Receiving breaking news alerts, delivered straight to your e-mail address. Follow the latest news on politics, technology, health or the topics that interest you most. Or stay informed on what‚Äôs coming up on your favorite CNN TV and Headline News programs.
-CNN offers e-mail updates as numerous and diverse as your tastes.¬†
-Register now
-¬†and select from the various e-mails.
-Submit a Pitch or Feedback
-Have a story idea? Click Here
-Have something to say? Click Here
-Legal Terms and Conditions
-CNN Interactive Service Agreement
-View the terms of the¬†
-CNN Interactive Services Agreement
-.
-Privacy Statement
-To better protect your privacy, we provide this notice explaining our¬†
-online information practices
-¬†and the choices you can make about the way your information is collected and used:¬†
-CNN Privacy Statement.
-CNN‚Äôs Reprint and Copyright Information
-Copyrights and Copyright Agent. CNN respects the rights of all copyright holders and in this regard, CNN has adopted and implemented a policy that provides for the termination in
-appropriate circumstances of subscribers and account holders who infringe the rights of copyright holders. If you believe that your work has been copied in a way that constitutes
-copyright infringement, please provide CNN‚Äôs Copyright Agent the following information required by the Online Copyright Infringement Liability Limitation Act of the Digital
-Millennium Copyright Act, 17 U.S.C. ¬§ 512:
-A physical or electronic signature of a person authorized to act on behalf of the owner of an exclusive right that is allegedly infringed.
-Identification of the copyright work claimed to have been infringed, or, if multiple copyrighted works at a single online site are covered by a single notification, a representative list of such works at that site.
-Information reasonably sufficient to permit us to contact the complaining party.
-A statement that the information in the notification is accurate, and under penalty of perjury, that the complaining party is authorized to act on behalf of the owner of an exclusive right that is allegedly infringed.
-Identification of the copyright work claimed to have been infringed, or, if multiple copyrighted works at a single online site are covered by a single notification, a representative list of such works at that site.
-Identification of the material that is claimed to be infringing or to be the subject of infringing activity and that is to be removed or access to which is to be disabled, and information reasonably sufficient to permit us to locate the material.
-Information reasonably sufficient to permit us to contact the complaining party.
-A statement that the complaining party has a good-faith belief that use of the material in the manner complained of is not authorized by the copyright owner, its agent, or the law.
-A statement that the information in the notification is accurate, and under penalty of perjury, that the complaining party is authorized to act on behalf of the owner of an exclusive right that is allegedly infringed.
-Information reasonably sufficient to permit us to contact the complaining party.
-A statement that the complaining party has a good-faith belief that use of the material in the manner complained of is not authorized by the copyright owner, its agent, or the law.
-A statement that the information in the notification is accurate, and under penalty of perjury, that the complaining party is authorized to act on behalf of the owner of an exclusive right that is allegedly infringed.
-Identification of the material that is claimed to be infringing or to be the subject of infringing activity and that is to be removed or access to which is to be disabled, and information reasonably sufficient to permit us to locate the material.
-Information reasonably sufficient to permit us to contact the complaining party.
-A statement that the complaining party has a good-faith belief that use of the material in the manner complained of is not authorized by the copyright owner, its agent, or the law.
-A statement that the information in the notification is accurate, and under penalty of perjury, that the complaining party is authorized to act on behalf of the owner of an exclusive right that is allegedly infringed.
-Information reasonably sufficient to permit us to contact the complaining party.
-A statement that the complaining party has a good-faith belief that use of the material in the manner complained of is not authorized by the copyright owner, its agent, or the law.
-A statement that the information in the notification is accurate, and under penalty of perjury, that the complaining party is authorized to act on behalf of the owner of an exclusive right that is allegedly infringed.
-A statement that the complaining party has a good-faith belief that use of the material in the manner complained of is not authorized by the copyright owner, its agent, or the law.
-A statement that the information in the notification is accurate, and under penalty of perjury, that the complaining party is authorized to act on behalf of the owner of an exclusive right that is allegedly infringed.
-A statement that the information in the notification is accurate, and under penalty of perjury, that the complaining party is authorized to act on behalf of the owner of an exclusive right that is allegedly infringed.
-CNN‚Äôs Copyright Agent for notice of claims of copyright infringement on or regarding this site can be reached by sending an email to
-¬†copyrightagent@turner.com
-¬†or writing to:
-Copyright Agent
-1050 Techwood Dr.
-Atlanta, GA 30318
-Phone: (404) 878-2276
-Fax: (404) 827-1995
-Email:¬†
-copyrightagent@turner.com
-Subscribe
-Sign in
-My Account
-Settings
-Newsletters
-Topics You Follow
-Sign Out
-Your CNN account
-Sign in to your CNN account
-Live TV
-Listen
-Watch
-US
-Crime + Justice
-World
-Africa
-Americas
-Asia
-Australia
-China
-Europe
-India
-Middle East
-United Kingdom
-Politics
-SCOTUS
-Congress
-Facts First
-2024 Elections
-Business
-Tech
-Media
-Calculators
-Videos
-Markets
-Pre-markets
-After-Hours
-Fear &amp; Greed
-Investing
-Markets Now
-Nightcap
-Health
-Life, But Better
-Fitness
-Food
-Sleep
-Mindfulness
-Relationships
-Entertainment
-Movies
-Television
-Celebrity
-Tech
-Innovate
-Foreseeable Future
-Mission: Ahead
-Work Transformed
-Innovative Cities
-Style
-Arts
-Design
-Fashion
-Architecture
-Luxury
-Beauty
-Video
-Travel
-Destinations
-Food &amp; Drink
-Stay
-News
-Videos
-Sports
-Pro Football
-College Football
-Basketball
-Baseball
-Soccer
-Olympics
-Hockey
-Science
-Space
-Life
-Unearthed
-Climate
-Solutions
-Weather
-Weather
-Video
-Climate
-Ukraine-Russia War
-Israel-Hamas War
-Watch
-Live TV
-CNN Headlines
-CNN Shorts
-Shows A-Z
-CNN10
-CNN Max
-CNN TV Schedules
-FlashDocs
-Listen
-CNN 5 Things
-Chasing Life with Dr. Sanjay Gupta
-The Assignment with Audie Cornish
-One Thing
-Tug of War
-CNN Political Briefing
-The Axe Files
-All There Is with Anderson Cooper
-All CNN Audio podcasts
-CNN Underscored
-Electronics
-Fashion
-Beauty
-Health &amp; Fitness
-Home
-Reviews
-Deals
-Gifts
-Travel
-Outdoors
-Pets
-Games
-CNN Crossword
-Jumble Crossword
-Photo Shuffle
-Sudoblock
-Sudoku
-5 Things Quiz
-About CNN
-Subscribe
-Photos
-Investigations
-CNN Profiles
-CNN Leadership
-CNN Newsletters
-Work for CNN
-Watch
-Listen
-Live TV
-Follow CNN
-Subscribe
-Sign in
-My Account
-Settings
-Newsletters
-Topics You Follow
-Sign Out
-Your CNN account
-Sign in to your CNN account
-Terms of Use
-Privacy Policy
-Ad Choices
-Accessibility &amp; CC
-About
-Subscribe
-Newsletters
-Transcripts
-Help Center
-© 2025 Cable News Network. A Warner Bros. Discovery Company. All Rights Reserved.
-CNN Sans ‚Ñ¢ &amp; ¬© 2016 Cable News Network.
-
-
-
-careers page
-Webpage Title:
-CNN Jobs | Warner Bros. Discovery
-Webpage Contents:
-CNN Jobs
-No results for
-&#34;${pageStateData.searchKeyword}&#34;
-No results for
-&#34;${pageStateData.placeVal}&#34;
-Would you like to consider the job categories below?
-Our Teams
-Where will your story take you? Learn more about our teams
-​​​​​​​and find your next great role.
-Consumer Products
-Corporate &amp; Administrative
-Creative, Content &amp; Editorial
-Data &amp; Research
-Early Careers
-Executive
-Finance &amp; Accounting
-Game Development
-Human Resources
-Legal &amp; Business Affairs
-Marketing &amp; Communications
-Product Management
-Production
-Sales &amp; Distribution
-Studio Operations
-Technology
-Explore our opportunities across CNN, CNN Digital, HLN, CNN International, CNN en Español and join the most trusted and recognized name in news.
-
-
-
-company page
-Webpage Title:
-Breaking News, Latest News and Videos | CNN
-Webpage Contents:
-CNN values your feedback
-1. How relevant is this ad to you?
-2. Did you encounter any technical issues?
-Video player was slow to load content
-Video content never loaded
-Ad froze or did not finish loading
-Video content did not start after ad
-Audio on ad was too loud
-Other issues
-Ad never loaded
-Ad prevented/slowed the page from loading
-Content moved around while ad loaded
-Ad was repetitive to ads I&#39;ve seen previously
-Other issues
-Cancel
-Submit
-Thank You!
-Your effort and contribution in providing this feedback is much
-                                        appreciated.
-Close
-Ad Feedback
-Close icon
-US
-World
-Politics
-Business
-Health
-Entertainment
-Style
-Travel
-Sports
-Science
-Climate
-Weather
-Ukraine-Russia War
-Israel-Hamas War
-Games
-More
-US
-World
-Politics
-Business
-Health
-Entertainment
-Style
-Travel
-Sports
-Science
-Climate
-Weather
-Ukraine-Russia War
-Israel-Hamas War
-Games
-Watch
-Listen
-Live TV
-Subscribe
-Sign in
-My Account
-Settings
-Newsletters
-Topics You Follow
-Sign Out
-Your CNN account
-Sign in to your CNN account
-Sign in
-My Account
-Settings
-Newsletters
-Topics You Follow
-Sign Out
-Your CNN account
-Sign in to your CNN account
-Live TV
-Listen
-Watch
-Edition
-US
-International
-Arabic
-Espa√±ol
-Edition
-US
-International
-Arabic
-Espa√±ol
-World
-Africa
-Americas
-Asia
-Australia
-China
-Europe
-India
-Middle East
-United Kingdom
-US Politics
-SCOTUS
-Congress
-Facts First
-2024 Elections
-Business
-Tech
-Media
-Calculators
-Videos
-Markets
-Pre-markets
-After-Hours
-Fear &amp; Greed
-Investing
-Markets Now
-Nightcap
-Health
-Life, But Better
-Fitness
-Food
-Sleep
-Mindfulness
-Relationships
-Entertainment
-Movies
-Television
-Celebrity
-Tech
-Innovate
-Foreseeable Future
-Mission: Ahead
-Work Transformed
-Innovative Cities
-Style
-Arts
-Design
-Fashion
-Architecture
-Luxury
-Beauty
-Video
-Travel
-Destinations
-Food &amp; Drink
-Stay
-News
-Videos
-Sports
-Football
-Tennis
-Golf
-Motorsport
-US Sports
-Olympics
-Climbing
-Esports
-Hockey
-Science
-Space
-Life
-Unearthed
-Climate
-Solutions
-Weather
-Weather
-Video
-Climate
-Ukraine-Russia War
-Israel-Hamas War
-Features
-As Equals
-Call to Earth
-Freedom Project
-Impact Your World
-Inside Africa
-CNN Heroes
-Watch
-Live TV
-CNN Fast
-Shows A-Z
-CNN10
-CNN Max
-CNN TV Schedules
-Listen
-CNN 5 Things
-Chasing Life with Dr. Sanjay Gupta
-The Assignment with Audie Cornish
-One Thing
-Tug of War
-CNN Political Briefing
-The Axe Files
-All There Is with Anderson Cooper
-All CNN Audio podcasts
-Games
-CNN Crossword
-Jumble Crossword
-Photo Shuffle
-Sudoblock
-Sudoku
-5 Things Quiz
-About CNN
-Photos
-Investigations
-CNN Profiles
-CNN Leadership
-CNN Newsletters
-Work for CNN
-Follow CNN
-Spain mine accident
-Myanmar earthquake
-Marine Le Pen
-Europe‚Äôs military wake-up
-Trump‚Äôs tariff gamble
-South Korea wildfire
-What to know about lorazepam
-Trump is set to gamble his presidency, the economy and Americans&#39; finances
-Show all
-•
-Analysis
-Analysis
-Justin Sullivan/Getty Images
-Analysis
-US president is asking everyone to buy into a strategy that promises future benefits but requires sacrifice for years
-Stocks are plunging as Wall Street tires of Trump‚Äôs tariffs
-Trump says he‚Äôs ‚Äònot joking‚Äô about seeking a third term
-Jamie Kelter Davis/Bloomberg/Getty Images
-Elon Musk goes all in on Wisconsin Supreme Court race
-Leon Neal/Getty Images
-Greenland‚Äôs new leader has a message for Trump
-•
-Video
-1:48
-CNN
-Video
-John Dean reacts to Trump third term comments
-1:48
-Mindaugas Kulbis/AP
-Bodies of three out of four US soldiers whose vehicle was submerged in Lithuania are recovered
-Kevin Lamarque/Reuters
-Trump accuses Ukraine‚Äôs Zelensky of ‚Äòtrying to back out‚Äô of proposed minerals deal
-Trump criticizes Putin and threatens adversaries with new tariffs as he barrels toward April 2 deadline
-Video
-Fareed‚Äôs take: Putin is trying to rebuild Russia‚Äôs Tsarist empire
-5:52
-‚ÄòPATHETIC‚Äô Europe is breaking military taboos
-CNN Fast
-- Source:
-CNN
-Catch up on today‚Äôs global news
-CNN
-What should you know about the powerful drug Lorazepam
-Paul Faith/AFP/Getty Images
-Primark CEO resigns after ‚Äòerror of judgment‚Äô
-Richard A. Brooks/AFP/Getty Images
-Popular Japanese beef bowl chain shuts after rat and bug found in food
-Joe Maher/Getty Images
-Helen Mirren doesn‚Äôt want next James Bond to be a woman
-Ad Feedback
-More top stories
-Stephanie Lecocq/Reuters
-French far-right leader Le Pen banned from 2027 election after guilty verdict
-Bodies of missing aid workers found in Gaza ‚Äòmass grave‚Äô following Israeli attacks
-Moldova says Russia helped pro-Moscow MP flee long jail sentence
-Golden window to reach victims buried alive closing after quake kills more than 2,000 in Myanmar and Thailand
-Israel again expands Gaza war as Netanyahu vows he‚Äôs changing the Middle East. The endgame is unclear
-2 dead, 4 missing in Spain mine accident
-Amanda Voisard for The Washington Post/Getty Images
-Rhinos were hunted to extinction in this country, but a recent baby boom brings hope
-FoodCare
-This Angolan company is finding global buyers for its cassava and caterpillars
-cyano66/iStockphoto/Getty Images
-Alzheimer‚Äôs risk rises when amount of deep sleep falls, study suggests
-Ad Feedback
-Chris Jung/NURPHO/AP
-Man caring for ancestors‚Äô grave may have ignited South Korea wildfire: police
-Mar 31, 2025
-Alessandro Serrano/Shutterstock
-Fire at Tesla dealership near Rome destroys 17 cars
-Mar 31, 2025
-Borut Zivulovic/Reuters
-Domen Prevc breaks world record with 254.5-meter ski jump
-Mar 31, 2025
-CNN
-Video
-Driverless car takes on winding country roads at 60mph
-2:39
-Mar 24, 2025
-Ad Feedback
-Rebecca Blackwell/AP
-Unseeded teen denies idol Novak Djokovic his 100th career title
-HyveGeo
-This startup wants to green the desert using microalgae and agricultural waste
-Michal Augustini/Shutterstock
-The Who get real about octogenarian rock star life
-•
-Video
-2:24
-Marisa Delles
-Video
-‚ÄòWhat kind of piece of sh*t uses when pregnant?‚Äô: Young mom speaks out on fentanyl addiction
-2:24
-Omar Jimenez/CNN
-She was expelled from the United States, but still thought America would help. She was wrong
-The Evergreen Girls LLC
-Queer and trans homesteaders are conquering the social media frontier
-mtcurado/iStockphoto/Getty Images
-This airport landing is so challenging only 50 pilots are qualified to do it
-Miles Aldridge Courtesy Sotheby‚Äôs
-A photographer makes the case for shooting with film over digital
-Kenneth Richmond/Getty Images
-Min Woo Lee wins Houston Open for first PGA Tour title, joins exclusive company with sister
-Antonio_Diaz/iStockphoto/Getty Images
-Adults can sleep with stuffed animals, too. It might even be a good thing, experts say
-•
-Video
-0:48
-Cindy and Curt Leitschuh
-Video
-Ring camera captures the moment a small plane crashes into a home
-0:48
-Ad Feedback
-Featured Sections
-Space and science
-NASA
-Curiosity rover makes ‚Äòarguably the most exciting organic detection to date on Mars‚Äô
-Wind turbine parts may be giant technofossils that puzzle future scientists
-Fossilized fish up to 16 million years old found in Australia, with last meal still intact
-Scientists redid an experiment that showed how life on Earth could have started. They found a new possibility
-Global Travel
-Show all
-Mustafa Abumunes/AFP/Getty Images
-Why there‚Äôs a huge collection of vintage cars stored in the middle of the desert
-Two sisters with no hospitality experience bought a century-old inn. Here‚Äôs how it worked out
-Japan‚Äôs natural hot springs are running low. Overtourism is to blame
-Flight chaos and lost profits: The real cost for airlines of the Heathrow shutdown
-Ad Feedback
-Global Business
-Frederic J. Brown/AFP/Getty Images
-Looming car tariffs have some Americans rushing to dealerships to avoid sticker shock
-Trump says he ‚Äòcouldn‚Äôt care less‚Äô if auto prices rise because of tariffs
-‚ÄòA huge blow‚Äô: USDA cuts threaten to throw Wisconsin‚Äôs local food supply into disarray
-Canada‚Äôs snowbirds reconsider calling the US their second home
-Style
-Richard Baker/In Pictures/Getty Images
-Fashion giant H&amp;M plans to use AI clones of its human models. Not everyone is happy
-Viral Studio Ghibli-style AI images showcase power ‚Äì and copyright concerns ‚Äì of ChatGPT update
-Pamela Anderson, ‚Äòexplosive‚Äô bikinis and the changing tides of swimwear style
-The cultural impact of Madonna and the 1985 film ‚ÄòDesperately Seeking Susan‚Äô
-SPORT
-Show all
-Maddie Meyer/Getty Images
-US star Ilia Malinin defends his world figure skating title with breathtaking performance
-The world‚Äôs fastest 15-year-old sets his sights on Olympic gold
-Seven ejected following scuffle in Minnesota Timberwolves-Detroit Pistons game
-Alysa Liu becomes first American woman in 19 years to win figure skating world title
-Ad Feedback
-US Politics
-Samuel Corum/Sipa/Getty Images
-Is DOGE actually an agency? The answer could have major ramifications
-CNN Investigates
-Red states could benefit as Trump‚Äôs transportation secretary prioritizes funds based on birth and marriage rates
-Florida‚Äôs special elections give Trump, GOP leaders more reasons to sweat slim House majority
-Vulnerable Senate Democrat Ossoff seeks to channel Trump outrage on tough road to reelection
-health and wellness
-DenisMArt/iStockphoto/Getty Images
-Over half of US states are trying to eliminate food dyes. Here‚Äôs what you can do now
-Artificial sweetener found in diet drinks linked to brain changes that increase appetite, study finds
-Your phone may not be the problem when it comes to distraction, study says
-Here‚Äôs why you keep waking up to pee in the middle of the night
-Tech
-•
-Analysis
-Analysis
-Kevin Carter/Getty Images
-Analysis
-Apple needs a new reason to get you to buy a new iPhone. It may have one
-Doctor explains how artificial intelligence is already being deployed in medical care
-China is practicing ‚Äòdogfighting‚Äô with satellites as it ramps up space capabilities: US Space Force
-Elon Musk says he sold X to his AI company
-Photos You Should See
-•
-Gallery
-Gallery
-Reuters
-Gallery
-Deadly earthquake strikes Myanmar, Thailand and China
-•
-Gallery
-Gallery
-Sean M. Haffey/Getty Images
-Gallery
-The week in 34 photos
-•
-Gallery
-Gallery
-Courtesy The World&#39;s 50 Best
-Gallery
-Asia‚Äôs 50 best restaurants for 2025 revealed
-•
-Gallery
-Gallery
-Thomas Lohnes/Getty Images
-Gallery
-Europe‚Äôs largest wild animal comes back from the brink
-Bonnie Cash/Bloomberg/Getty Images
-Flags, figurines and gold everywhere: Trump transforms the Oval Office into a gilded gallery
-•
-Gallery
-Gallery
-Karim Sahib/AFP/Getty Images
-Gallery
-Arabian oryx: Back from the brink
-Ad Feedback
-In Case You Missed It
-Javed Iqbal/CNN
-‚ÄòGet us out of here‚Äô: Anti-migrant policies leave Afghan pilots fearing for their lives
-She was set to retire in August, but Milei‚Äôs government has dashed her hopes
-Analysis
-Why the American consumer is fed up
-This one thing might cut how much you use your phone in half, study finds
-‚ÄòWhite Lotus‚Äô villain Jon Gries reveals the true crimes that inspired his twisty take on Greg/Gary
-Judge temporarily halts Trump from canceling Radio Free Europe, handing embattled broadcasters a lifeline
-Kathy Bates says work feels ‚Äòmagnificent‚Äô after losing 100 lbs
-Takeaways from federal appeals court hearing on Trump‚Äôs use of the Alien Enemies Act
-A long-lost Klimt painting of an African prince goes on show
-Trump administration invoking state secrets privilege over deportation flight information sought by federal judge
-Subscribe
-Sign in
-My Account
-Settings
-Newsletters
-Topics You Follow
-Sign Out
-Your CNN account
-Sign in to your CNN account
-Live TV
-Listen
-Watch
-World
-Africa
-Americas
-Asia
-Australia
-China
-Europe
-India
-Middle East
-United Kingdom
-US Politics
-SCOTUS
-Congress
-Facts First
-2024 Elections
-Business
-Tech
-Media
-Calculators
-Videos
-Markets
-Pre-markets
-After-Hours
-Fear &amp; Greed
-Investing
-Markets Now
-Nightcap
-Health
-Life, But Better
-Fitness
-Food
-Sleep
-Mindfulness
-Relationships
-Entertainment
-Movies
-Television
-Celebrity
-Tech
-Innovate
-Foreseeable Future
-Mission: Ahead
-Work Transformed
-Innovative Cities
-Style
-Arts
-Design
-Fashion
-Architecture
-Luxury
-Beauty
-Video
-Travel
-Destinations
-Food &amp; Drink
-Stay
-News
-Videos
-Sports
-Football
-Tennis
-Golf
-Motorsport
-US Sports
-Olympics
-Climbing
-Esports
-Hockey
-Science
-Space
-Life
-Unearthed
-Climate
-Solutions
-Weather
-Weather
-Video
-Climate
-Ukraine-Russia War
-Israel-Hamas War
-Features
-As Equals
-Call to Earth
-Freedom Project
-Impact Your World
-Inside Africa
-CNN Heroes
-Watch
-Live TV
-CNN Fast
-Shows A-Z
-CNN10
-CNN Max
-CNN TV Schedules
-Listen
-CNN 5 Things
-Chasing Life with Dr. Sanjay Gupta
-The Assignment with Audie Cornish
-One Thing
-Tug of War
-CNN Political Briefing
-The Axe Files
-All There Is with Anderson Cooper
-All CNN Audio podcasts
-Games
-CNN Crossword
-Jumble Crossword
-Photo Shuffle
-Sudoblock
-Sudoku
-5 Things Quiz
-About CNN
-Photos
-Investigations
-CNN Profiles
-CNN Leadership
-CNN Newsletters
-Work for CNN
-Watch
-Listen
-Live TV
-Follow CNN
-Subscribe
-Sign in
-My Account
-Settings
-Newsletters
-Topics You Follow
-Sign Out
-Your CNN account
-Sign in to your CNN account
-Terms of Use
-Privacy Policy
-Ad Choices
-Accessibility &amp; CC
-About
-Newsletters
-Transcripts
-© 2025 Cable News Network. A Warner Bros. Discovery Company. All Rights Reserved.
-CNN Sans ‚Ñ¢ &amp; ¬© 2016 Cable News Network.
-
-
-</pre>
-</div>
-</div>
-
-</div>
-
-</div>
-
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[13]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[57]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">system_prompt</span> <span class="o">=</span> <span class="s2">"You are an assistant that analyzes the contents of several relevant pages from a company website </span><span class="se">\</span>
+<div class=" highlight hl-python"><pre><span></span><span class="n">system_prompt_tone</span> <span class="o">=</span> <span class="s2">"You are an assistant that analyzes the contents of several relevant pages from a company website </span><span class="se">\</span>
 <span class="s2">and creates a short brochure about the company for prospective customers, investors and recruits. Respond in markdown.</span><span class="se">\</span>
 <span class="s2">Include details of company culture, customers and careers/jobs if you have the information."</span>
 
-<span class="c1"># Or uncomment the lines below for a more humorous brochure - this demonstrates how easy it is to incorporate 'tone':</span>
-
-<span class="c1"># system_prompt = "You are an assistant that analyzes the contents of several relevant pages from a company website \</span>
-<span class="c1"># and creates a short humorous, entertaining, jokey brochure about the company for prospective customers, investors and recruits. Respond in markdown.\</span>
-<span class="c1"># Include details of company culture, customers and careers/jobs if you have the information."</span>
+<span class="k">def</span> <span class="nf">get_brochure_user_prompt</span><span class="p">(</span><span class="n">company_name</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="n">tone</span><span class="p">):</span>
+    <span class="n">prompt</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"You are looking at a company called: </span><span class="si">{</span><span class="n">company_name</span><span class="si">}</span><span class="s2">.</span><span class="se">\n</span><span class="s2">"</span>
+    <span class="n">prompt</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">"Here are the contents of its landing page and other relevant pages:</span><span class="se">\n</span><span class="s2">"</span>
+    <span class="n">prompt</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">"Use this to build a short brochure with a </span><span class="si">{</span><span class="n">tone</span><span class="si">}</span><span class="s2"> tone.</span><span class="se">\n</span><span class="s2">"</span>
+    <span class="n">prompt</span> <span class="o">+=</span> <span class="n">get_all_details</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">prompt</span><span class="p">[:</span><span class="mi">5000</span><span class="p">]</span>
 </pre></div>
 
      </div>
 </div>
 </div>
-</div>
-
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[14]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">get_brochure_user_prompt</span><span class="p">(</span><span class="n">company_name</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="n">brochure_tone</span><span class="o">=</span><span class="s2">"professional"</span><span class="p">):</span>
-    <span class="n">user_prompt</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"You are looking at a company called: </span><span class="si">{</span><span class="n">company_name</span><span class="si">}</span><span class="se">\n</span><span class="s2">"</span>
-    <span class="n">user_prompt</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">"Here are the contents of its landing page and other relevant pages; use this information to build a short brochure of the company in markdown.</span><span class="se">\n</span><span class="s2">"</span>
-    <span class="n">user_prompt</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">"Make sure you maintain a </span><span class="si">{</span><span class="n">brochure_tone</span><span class="si">}</span><span class="s2"> tone in the brochure.</span><span class="se">\n</span><span class="s2">"</span>
-    <span class="n">user_prompt</span> <span class="o">+=</span> <span class="n">get_all_details</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
-    <span class="n">user_prompt</span> <span class="o">=</span> <span class="n">user_prompt</span><span class="p">[:</span><span class="mi">5_000</span><span class="p">]</span> <span class="c1"># Truncate if more than 5,000 characters</span>
-    <span class="k">return</span> <span class="n">user_prompt</span>
-</pre></div>
-
-     </div>
-</div>
-</div>
-</div>
-
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[15]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">get_brochure_user_prompt</span><span class="p">(</span><span class="n">company_name</span><span class="p">,</span> <span class="n">website_url</span><span class="p">,</span> <span class="n">brochure_tone</span><span class="o">=</span><span class="s2">"jovial"</span><span class="p">)</span>
-</pre></div>
-
-     </div>
-</div>
-</div>
-</div>
-
-<div class="jp-Cell-outputWrapper">
-<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
-</div>
-
-
-<div class="jp-OutputArea jp-Cell-outputArea">
-
-<div class="jp-OutputArea-child">
-
-    
-    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
-
-
-<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
-<pre>Found links: {&#39;links&#39;: [{&#39;type&#39;: &#39;about page&#39;, &#39;url&#39;: &#39;https://edition.cnn.com/about&#39;}, {&#39;type&#39;: &#39;careers page&#39;, &#39;url&#39;: &#39;https://careers.wbd.com/cnnjobs&#39;}, {&#39;type&#39;: &#39;homepage&#39;, &#39;url&#39;: &#39;https://edition.cnn.com&#39;}, {&#39;type&#39;: &#39;profiles page&#39;, &#39;url&#39;: &#39;https://edition.cnn.com/profiles&#39;}, {&#39;type&#39;: &#39;leadership page&#39;, &#39;url&#39;: &#39;https://edition.cnn.com/profiles/cnn-leadership&#39;}]}
-</pre>
-</div>
-</div>
-
-<div class="jp-OutputArea-child">
-
-    
-    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[15]:</div>
-
-
-
-
-<div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain">
-<pre>&#34;You are looking at a company called: CNN\nHere are the contents of its landing page and other relevant pages; use this information to build a short brochure of the company in markdown.\nMake sure you maintain a jovial tone in the brochure.\nLanding page:\nWebpage Title:\nBreaking News, Latest News and Videos | CNN\nWebpage Contents:\nCNN values your feedback\n1. How relevant is this ad to you?\n2. Did you encounter any technical issues?\nVideo player was slow to load content\nVideo content never loaded\nAd froze or did not finish loading\nVideo content did not start after ad\nAudio on ad was too loud\nOther issues\nAd never loaded\nAd prevented/slowed the page from loading\nContent moved around while ad loaded\nAd was repetitive to ads I&#39;ve seen previously\nOther issues\nCancel\nSubmit\nThank You!\nYour effort and contribution in providing this feedback is much\n                                        appreciated.\nClose\nAd Feedback\nClose icon\nUS\nWorld\nPolitics\nBusiness\nHealth\nEntertainment\nStyle\nTravel\nSports\nScience\nClimate\nWeather\nUkraine-Russia War\nIsrael-Hamas War\nGames\nMore\nUS\nWorld\nPolitics\nBusiness\nHealth\nEntertainment\nStyle\nTravel\nSports\nScience\nClimate\nWeather\nUkraine-Russia War\nIsrael-Hamas War\nGames\nWatch\nListen\nLive TV\nSubscribe\nSign in\nMy Account\nSettings\nNewsletters\nTopics You Follow\nSign Out\nYour CNN account\nSign in to your CNN account\nSign in\nMy Account\nSettings\nNewsletters\nTopics You Follow\nSign Out\nYour CNN account\nSign in to your CNN account\nLive TV\nListen\nWatch\nEdition\nUS\nInternational\nArabic\nEspa√±ol\nEdition\nUS\nInternational\nArabic\nEspa√±ol\nWorld\nAfrica\nAmericas\nAsia\nAustralia\nChina\nEurope\nIndia\nMiddle East\nUnited Kingdom\nUS Politics\nSCOTUS\nCongress\nFacts First\n2024 Elections\nBusiness\nTech\nMedia\nCalculators\nVideos\nMarkets\nPre-markets\nAfter-Hours\nFear &amp; Greed\nInvesting\nMarkets Now\nNightcap\nHealth\nLife, But Better\nFitness\nFood\nSleep\nMindfulness\nRelationships\nEntertainment\nMovies\nTelevision\nCelebrity\nTech\nInnovate\nForeseeable Future\nMission: Ahead\nWork Transformed\nInnovative Cities\nStyle\nArts\nDesign\nFashion\nArchitecture\nLuxury\nBeauty\nVideo\nTravel\nDestinations\nFood &amp; Drink\nStay\nNews\nVideos\nSports\nFootball\nTennis\nGolf\nMotorsport\nUS Sports\nOlympics\nClimbing\nEsports\nHockey\nScience\nSpace\nLife\nUnearthed\nClimate\nSolutions\nWeather\nWeather\nVideo\nClimate\nUkraine-Russia War\nIsrael-Hamas War\nFeatures\nAs Equals\nCall to Earth\nFreedom Project\nImpact Your World\nInside Africa\nCNN Heroes\nWatch\nLive TV\nCNN Fast\nShows A-Z\nCNN10\nCNN Max\nCNN TV Schedules\nListen\nCNN 5 Things\nChasing Life with Dr. Sanjay Gupta\nThe Assignment with Audie Cornish\nOne Thing\nTug of War\nCNN Political Briefing\nThe Axe Files\nAll There Is with Anderson Cooper\nAll CNN Audio podcasts\nGames\nCNN Crossword\nJumble Crossword\nPhoto Shuffle\nSudoblock\nSudoku\n5 Things Quiz\nAbout CNN\nPhotos\nInvestigations\nCNN Profiles\nCNN Leadership\nCNN Newsletters\nWork for CNN\nFollow CNN\nSpain mine accident\nMyanmar earthquake\nMarine Le Pen\nEurope‚Äôs military wake-up\nTrump‚Äôs tariff gamble\nSouth Korea wildfire\nWhat to know about lorazepam\nTrump is set to gamble his presidency, the economy and Americans&#39; finances\nShow\xa0all\n•\nAnalysis\nAnalysis\nJustin Sullivan/Getty Images\nAnalysis\nUS president is asking everyone to buy into a strategy that promises future benefits but requires sacrifice for years\nStocks are plunging as Wall Street tires of Trump‚Äôs tariffs\nTrump says he‚Äôs ‚Äònot joking‚Äô about seeking a third term\nJamie Kelter Davis/Bloomberg/Getty Images\nElon Musk goes all in on Wisconsin Supreme Court race\nLeon Neal/Getty Images\nGreenland‚Äôs new leader has a message for Trump\n•\nVideo\n1:48\nCNN\nVideo\nJohn Dean reacts to Trump third term comments\n1:48\nMindaugas Kulbis/AP\nBodies of three out of four US soldiers whose vehicle was submerged in Lithuania are recovered\nKevin Lamarque/Reuters\nTrump accuses Ukraine‚Äôs Zelensky of ‚Äòtrying to back out‚Äô of proposed minerals deal\nTrump criticizes Putin and threatens adversaries with new tariffs as he barrels toward April 2 deadline\nVideo\nFareed‚Äôs take: Putin is trying to rebuild Russia‚Äôs Tsarist empire\n5:52\n‚ÄòPATHETIC‚Äô Europe is breaking military taboos\nCNN Fast\n- Source:\nCNN\nCatch up on today‚Äôs global news\nCNN\nWhat should you know about the powerful drug Lorazepam\nPaul Faith/AFP/Getty Images\nPrimark CEO resigns after ‚Äòerror of judgment‚Äô\nRichard A. Brooks/AFP/Getty Images\nPopular Japanese beef bowl chain shuts after rat and bug found in food\nJoe Maher/Getty Images\nHelen Mirren doesn‚Äôt want next James Bond to be a woman\nAd Feedback\nMore top stories\nStephanie Lecocq/Reuters\nFrench far-right leader Le Pen banned from 2027 election after guilty verdict\nBodies of missing aid workers found in Gaza ‚Äòmass grave‚Äô following Israeli attacks\nMoldova says Russia helped pro-Moscow MP flee long jail sentence\nGolden window to reach victims buried alive closing after quake kills more than 2,000 in Myanmar and Thailand\nIsrael again expands Gaza war as Netanyahu vows he‚Äôs changing the Middle East. The endgame is unclear\n2 dead, 4 missing in S&#34;</pre>
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[16]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">brochure_tone</span><span class="o">=</span><span class="s2">"jovial"</span>
-</pre></div>
-
-     </div>
-</div>
-</div>
-</div>
-
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[17]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">create_brochure</span><span class="p">(</span><span class="n">company_name</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="n">brochure_tone</span><span class="p">):</span>
-    <span class="n">response</span> <span class="o">=</span> <span class="n">openai</span><span class="o">.</span><span class="n">chat</span><span class="o">.</span><span class="n">completions</span><span class="o">.</span><span class="n">create</span><span class="p">(</span>
-        <span class="n">model</span><span class="o">=</span><span class="n">MODEL</span><span class="p">,</span>
-        <span class="n">messages</span><span class="o">=</span><span class="p">[</span>
-            <span class="p">{</span><span class="s2">"role"</span><span class="p">:</span> <span class="s2">"system"</span><span class="p">,</span> <span class="s2">"content"</span><span class="p">:</span> <span class="n">system_prompt</span><span class="p">},</span>
-            <span class="p">{</span><span class="s2">"role"</span><span class="p">:</span> <span class="s2">"user"</span><span class="p">,</span> <span class="s2">"content"</span><span class="p">:</span> <span class="n">get_brochure_user_prompt</span><span class="p">(</span><span class="n">company_name</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="n">brochure_tone</span><span class="p">)}</span>
-          <span class="p">],</span>
-    <span class="p">)</span>
-    <span class="n">result</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">choices</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">message</span><span class="o">.</span><span class="n">content</span>
-    <span class="k">return</span> <span class="n">result</span><span class="o">.</span><span class="n">strip</span><span class="p">(</span><span class="s1">'`'</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">'```markdown</span><span class="se">\n</span><span class="s1">'</span><span class="p">,</span> <span class="s1">''</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">'```'</span><span class="p">,</span> <span class="s1">''</span><span class="p">)</span>
-</pre></div>
-
-     </div>
-</div>
-</div>
-</div>
-
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[18]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">english_brochure</span> <span class="o">=</span> <span class="n">create_brochure</span><span class="p">(</span><span class="n">company_name</span><span class="p">,</span> <span class="n">website_url</span><span class="p">,</span> <span class="n">brochure_tone</span><span class="p">)</span>
-<span class="n">display</span><span class="p">(</span><span class="n">Markdown</span><span class="p">(</span><span class="n">english_brochure</span><span class="p">))</span>
-</pre></div>
-
-     </div>
-</div>
-</div>
-</div>
-
-<div class="jp-Cell-outputWrapper">
-<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
-</div>
-
-
-<div class="jp-OutputArea jp-Cell-outputArea">
-
-<div class="jp-OutputArea-child">
-
-    
-    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
-
-
-<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
-<pre>Found links: {&#39;links&#39;: [{&#39;type&#39;: &#39;about page&#39;, &#39;url&#39;: &#39;https://edition.cnn.com/about&#39;}, {&#39;type&#39;: &#39;careers page&#39;, &#39;url&#39;: &#39;https://careers.wbd.com/cnnjobs&#39;}, {&#39;type&#39;: &#39;company page&#39;, &#39;url&#39;: &#39;https://edition.cnn.com&#39;}]}
-</pre>
-</div>
-</div>
-
-<div class="jp-OutputArea-child">
-
-    
-    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
-
-
-
-
-<div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-OutputArea-output " data-mime-type="text/markdown">
-<p>markdown</p>
-<h1 id="%F0%9F%8C%9F-Welcome-to-CNN!-%F0%9F%8C%8D">&#127775; Welcome to CNN! &#127757;<a class="anchor-link" href="#%F0%9F%8C%9F-Welcome-to-CNN!-%F0%9F%8C%8D">&#182;</a></h1><p>At CNN, we’re not just about headlines; we’re about heart, hustle, and helping you stay informed about the world around you! We believe knowledge is power, and our mission is to deliver news and stories that matter—swiftly, accurately, and vividly!</p>
-<hr>
-<h2 id="%F0%9F%8E%A4-Who-Are-We?">&#127908; Who Are We?<a class="anchor-link" href="#%F0%9F%8E%A4-Who-Are-We?">&#182;</a></h2><p>CNN, a pioneer in news broadcasting, is dedicated to bringing you <strong>Breaking News, Latest Trends, and Noteworthy Videos</strong> from every corner of the globe. With a team of skilled reporters, analysts, and storytellers, we dive deep into topics ranging from <strong>Politics</strong> and <strong>Business</strong> to <strong>Science</strong>, <strong>Health</strong>, and <strong>Entertainment</strong>!</p>
-<hr>
-<h2 id="%F0%9F%8E%89-Our-Company-Culture">&#127881; Our Company Culture<a class="anchor-link" href="#%F0%9F%8E%89-Our-Company-Culture">&#182;</a></h2><h3 id="Feedback-Drives-Us!"><strong>Feedback Drives Us!</strong><a class="anchor-link" href="#Feedback-Drives-Us!">&#182;</a></h3><p>At CNN, your voice matters! We encourage feedback to improve our services and user experience—because we believe in continuously evolving and ensuring that our audience gets what they want, when they want it. Don’t hesitate to let us know how we can better serve you! 🗣️</p>
-<h3 id="Collaboration-&amp;-Diversity"><strong>Collaboration &amp; Diversity</strong><a class="anchor-link" href="#Collaboration-&amp;-Diversity">&#182;</a></h3><p>We celebrate a culture that thrives on diversity and collaboration, creating an inclusive environment where every opinion is valued. Join us as we explore the fascinating tales that shape our world!</p>
-<hr>
-<h2 id="%F0%9F%91%A5-Our-Audience:">&#128101; Our Audience:<a class="anchor-link" href="#%F0%9F%91%A5-Our-Audience:">&#182;</a></h2><p>CNN’s audience spans across the globe, from curious consumers to informed investors and everyone in between! Whether you’re seeking <strong>in-depth analysis</strong> of world events or <strong>entertainment updates</strong>, we’ve got you covered! 🗞️</p>
-<hr>
-<h2 id="%F0%9F%9A%80-Careers-at-CNN">&#128640; Careers at CNN<a class="anchor-link" href="#%F0%9F%9A%80-Careers-at-CNN">&#182;</a></h2><h3 id="Join-the-CNN-Family!"><strong>Join the CNN Family!</strong><a class="anchor-link" href="#Join-the-CNN-Family!">&#182;</a></h3><p>We are always on the lookout for passionate and innovative individuals who are ready to make a difference. If you’re eager to tell stories that resonate and to create impactful content, then your dream job awaits you here at CNN!</p>
-<ul>
-<li><strong>Dynamic Work Environment</strong>: Work in an atmosphere that encourages creativity and connectivity. </li>
-<li><strong>Growth Opportunities</strong>: Ample chances for personal and professional growth! </li>
-<li><strong>Be Part of Something Bigger</strong>: Contribute to impactful journalism that shapes perspectives and sparks conversations.</li>
-</ul>
-<hr>
-<h2 id="%F0%9F%8C%88-Connect-with-Us!">&#127752; Connect with Us!<a class="anchor-link" href="#%F0%9F%8C%88-Connect-with-Us!">&#182;</a></h2><p>We provide news in various languages and formats across multiple platforms, ensuring that everyone has access to the stories that drive our world forward. Sign up for our newsletters, follow us on social media, or dive into our live broadcasts—stay updated no matter where you are!</p>
-<hr>
-<p>Join us in making sense of the world, one story at a time! 📺✨</p>
-<p><a href="#">Work for CNN</a> | <a href="#">Connect with Us</a> | <a href="#">Feedback</a></p>
-<p>Together, let's explore the powerful tales unfolding around us. Welcome to CNN!</p>
-
-</div>
-
-</div>
-
-</div>
-
 </div>
 
 </div>
@@ -17863,9 +14886,7 @@ CNN Sans ‚Ñ¢ &amp; ¬© 2016 Cable News Network.
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h2 id="Finally---a-minor-improvement">Finally - a minor improvement<a class="anchor-link" href="#Finally---a-minor-improvement">&#182;</a></h2><p>With a small adjustment, we can change this so that the results stream back from OpenAI,
-with the familiar typewriter animation</p>
-
+<h2 id="STEP-6:-Generate-brochure-in-English-using-GPT-4o-mini">STEP 6: Generate brochure in English using GPT-4o-mini<a class="anchor-link" href="#STEP-6:-Generate-brochure-in-English-using-GPT-4o-mini">&#182;</a></h2>
 </div>
 </div>
 </div>
@@ -17874,25 +14895,19 @@ with the familiar typewriter animation</p>
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[19]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[58]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">stream_brochure</span><span class="p">(</span><span class="n">company_name</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="n">brochure_tone</span><span class="p">):</span>
-    <span class="n">stream</span> <span class="o">=</span> <span class="n">openai</span><span class="o">.</span><span class="n">chat</span><span class="o">.</span><span class="n">completions</span><span class="o">.</span><span class="n">create</span><span class="p">(</span>
+<div class=" highlight hl-python"><pre><span></span><span class="k">def</span> <span class="nf">create_brochure</span><span class="p">(</span><span class="n">company_name</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="n">tone</span><span class="o">=</span><span class="s2">"professional"</span><span class="p">):</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">chat</span><span class="o">.</span><span class="n">completions</span><span class="o">.</span><span class="n">create</span><span class="p">(</span>
         <span class="n">model</span><span class="o">=</span><span class="n">MODEL</span><span class="p">,</span>
         <span class="n">messages</span><span class="o">=</span><span class="p">[</span>
-            <span class="p">{</span><span class="s2">"role"</span><span class="p">:</span> <span class="s2">"system"</span><span class="p">,</span> <span class="s2">"content"</span><span class="p">:</span> <span class="n">system_prompt</span><span class="p">},</span>
-            <span class="p">{</span><span class="s2">"role"</span><span class="p">:</span> <span class="s2">"user"</span><span class="p">,</span> <span class="s2">"content"</span><span class="p">:</span> <span class="n">get_brochure_user_prompt</span><span class="p">(</span><span class="n">company_name</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="n">brochure_tone</span><span class="p">)}</span>
-          <span class="p">],</span>
-        <span class="n">stream</span><span class="o">=</span><span class="kc">True</span>
+            <span class="p">{</span><span class="s2">"role"</span><span class="p">:</span> <span class="s2">"system"</span><span class="p">,</span> <span class="s2">"content"</span><span class="p">:</span> <span class="n">system_prompt_tone</span><span class="p">},</span>
+            <span class="p">{</span><span class="s2">"role"</span><span class="p">:</span> <span class="s2">"user"</span><span class="p">,</span> <span class="s2">"content"</span><span class="p">:</span> <span class="n">get_brochure_user_prompt</span><span class="p">(</span><span class="n">company_name</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="n">tone</span><span class="p">)}</span>
+        <span class="p">],</span>
+        <span class="n">temperature</span><span class="o">=</span><span class="mf">0.7</span>
     <span class="p">)</span>
-    
-    <span class="n">response</span> <span class="o">=</span> <span class="s2">""</span>
-    <span class="n">display_handle</span> <span class="o">=</span> <span class="n">display</span><span class="p">(</span><span class="n">Markdown</span><span class="p">(</span><span class="s2">""</span><span class="p">),</span> <span class="n">display_id</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-    <span class="k">for</span> <span class="n">chunk</span> <span class="ow">in</span> <span class="n">stream</span><span class="p">:</span>
-        <span class="n">response</span> <span class="o">+=</span> <span class="n">chunk</span><span class="o">.</span><span class="n">choices</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">delta</span><span class="o">.</span><span class="n">content</span> <span class="ow">or</span> <span class="s1">''</span>
-        <span class="n">response</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">"```"</span><span class="p">,</span><span class="s2">""</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">"markdown"</span><span class="p">,</span> <span class="s2">""</span><span class="p">)</span>
-        <span class="n">update_display</span><span class="p">(</span><span class="n">Markdown</span><span class="p">(</span><span class="n">response</span><span class="p">),</span> <span class="n">display_id</span><span class="o">=</span><span class="n">display_handle</span><span class="o">.</span><span class="n">display_id</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">response</span><span class="o">.</span><span class="n">choices</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">message</span><span class="o">.</span><span class="n">content</span>
 </pre></div>
 
      </div>
@@ -17900,15 +14915,125 @@ with the familiar typewriter animation</p>
 </div>
 </div>
 
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h2 id="STEP-7:-Translate-brochure-(if-not-in-English)">STEP 7: Translate brochure (if not in English)<a class="anchor-link" href="#STEP-7:-Translate-brochure-(if-not-in-English)">&#182;</a></h2>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[59]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-python"><pre><span></span><span class="k">def</span> <span class="nf">translate_brochure</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">target_language</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">target_language</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">"american english"</span><span class="p">,</span> <span class="s2">"english"</span><span class="p">,</span> <span class="s2">"en"</span><span class="p">]:</span>
+        <span class="k">return</span> <span class="n">text</span>
+    <span class="n">translation_prompt</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"Please translate the following brochure to </span><span class="si">{</span><span class="n">target_language</span><span class="si">}</span><span class="s2">. Only return the translated markdown:</span><span class="se">\n\n</span><span class="si">{</span><span class="n">text</span><span class="si">}</span><span class="s2">"</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">chat</span><span class="o">.</span><span class="n">completions</span><span class="o">.</span><span class="n">create</span><span class="p">(</span>
+        <span class="n">model</span><span class="o">=</span><span class="n">MODEL</span><span class="p">,</span>
+        <span class="n">messages</span><span class="o">=</span><span class="p">[{</span><span class="s2">"role"</span><span class="p">:</span> <span class="s2">"user"</span><span class="p">,</span> <span class="s2">"content"</span><span class="p">:</span> <span class="n">translation_prompt</span><span class="p">}],</span>
+        <span class="n">temperature</span><span class="o">=</span><span class="mf">0.5</span>
+    <span class="p">)</span>
+    <span class="k">return</span> <span class="n">response</span><span class="o">.</span><span class="n">choices</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">message</span><span class="o">.</span><span class="n">content</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h2 id="STEP-8:-Combine-logic-for-Gradio-app">STEP 8: Combine logic for Gradio app<a class="anchor-link" href="#STEP-8:-Combine-logic-for-Gradio-app">&#182;</a></h2>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[60]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-python"><pre><span></span><span class="k">def</span> <span class="nf">brochure_app</span><span class="p">(</span><span class="n">company_name</span><span class="p">,</span> <span class="n">company_url</span><span class="p">,</span> <span class="n">tone</span><span class="p">,</span> <span class="n">language</span><span class="p">):</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">english</span> <span class="o">=</span> <span class="n">create_brochure</span><span class="p">(</span><span class="n">company_name</span><span class="p">,</span> <span class="n">company_url</span><span class="p">,</span> <span class="n">tone</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">language</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">"american english"</span><span class="p">,</span> <span class="s2">"english"</span><span class="p">,</span> <span class="s2">"en"</span><span class="p">]:</span>
+            <span class="k">return</span> <span class="n">english</span>
+        <span class="k">return</span> <span class="n">translate_brochure</span><span class="p">(</span><span class="n">english</span><span class="p">,</span> <span class="n">language</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">"❌ Error: </span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h2 id="STEP-9:-Launch-Gradio-UI">STEP 9: Launch Gradio UI<a class="anchor-link" href="#STEP-9:-Launch-Gradio-UI">&#182;</a></h2>
+</div>
+</div>
+</div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[20]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[61]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">stream_brochure</span><span class="p">(</span><span class="n">company_name</span><span class="p">,</span> <span class="n">website_url</span><span class="p">,</span> <span class="n">brochure_tone</span><span class="p">)</span>
+<div class=" highlight hl-python"><pre><span></span><span class="k">with</span> <span class="n">gr</span><span class="o">.</span><span class="n">Blocks</span><span class="p">()</span> <span class="k">as</span> <span class="n">demo</span><span class="p">:</span>
+    <span class="n">gr</span><span class="o">.</span><span class="n">Markdown</span><span class="p">(</span><span class="s2">"## 🌍 Multilingual Company Brochure Generator"</span><span class="p">)</span>
+
+    <span class="k">with</span> <span class="n">gr</span><span class="o">.</span><span class="n">Row</span><span class="p">():</span>
+        <span class="n">name</span> <span class="o">=</span> <span class="n">gr</span><span class="o">.</span><span class="n">Textbox</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s2">"Company Name"</span><span class="p">,</span> <span class="n">placeholder</span><span class="o">=</span><span class="s2">"e.g., CNN"</span><span class="p">)</span>
+        <span class="n">url</span> <span class="o">=</span> <span class="n">gr</span><span class="o">.</span><span class="n">Textbox</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s2">"Company Website URL"</span><span class="p">,</span> <span class="n">placeholder</span><span class="o">=</span><span class="s2">"e.g., https://edition.cnn.com"</span><span class="p">)</span>
+
+    <span class="k">with</span> <span class="n">gr</span><span class="o">.</span><span class="n">Row</span><span class="p">():</span>
+        <span class="n">tone</span> <span class="o">=</span> <span class="n">gr</span><span class="o">.</span><span class="n">Dropdown</span><span class="p">(</span>
+                  <span class="p">[</span><span class="s2">"professional"</span><span class="p">,</span> <span class="s2">"jovial"</span><span class="p">,</span> <span class="s2">"friendly"</span><span class="p">,</span> <span class="s2">"inspirational"</span><span class="p">,</span> <span class="s2">"luxury"</span><span class="p">,</span> <span class="s2">"youthful"</span><span class="p">,</span> <span class="s2">"serious"</span><span class="p">],</span>
+                  <span class="n">label</span><span class="o">=</span><span class="s2">"Brochure Tone"</span><span class="p">,</span>
+                  <span class="n">value</span><span class="o">=</span><span class="s2">"professional"</span>
+                <span class="p">)</span>
+
+        <span class="n">language</span> <span class="o">=</span> <span class="n">gr</span><span class="o">.</span><span class="n">Dropdown</span><span class="p">(</span>
+                  <span class="p">[</span>
+                      <span class="s2">"American English"</span><span class="p">,</span> <span class="s2">"British English"</span><span class="p">,</span> <span class="s2">"French"</span><span class="p">,</span> <span class="s2">"Spanish"</span><span class="p">,</span> <span class="s2">"German"</span><span class="p">,</span> <span class="s2">"Hindi"</span><span class="p">,</span>
+                      <span class="s2">"Mandarin Chinese"</span><span class="p">,</span> <span class="s2">"Japanese"</span><span class="p">,</span> <span class="s2">"Korean"</span><span class="p">,</span> <span class="s2">"Arabic"</span><span class="p">,</span> <span class="s2">"Portuguese"</span><span class="p">,</span> <span class="s2">"Russian"</span><span class="p">,</span>
+                      <span class="s2">"Indonesian"</span><span class="p">,</span> <span class="s2">"Malay"</span><span class="p">,</span> <span class="s2">"Vietnamese"</span><span class="p">,</span> <span class="s2">"Italian"</span><span class="p">,</span> <span class="s2">"Dutch"</span><span class="p">,</span> <span class="s2">"Thai"</span><span class="p">,</span> <span class="s2">"Swedish"</span>
+                  <span class="p">],</span>
+                  <span class="n">label</span><span class="o">=</span><span class="s2">"Brochure Language"</span><span class="p">,</span>
+                  <span class="n">value</span><span class="o">=</span><span class="s2">"American English"</span>
+                <span class="p">)</span>
+
+    <span class="n">output</span> <span class="o">=</span> <span class="n">gr</span><span class="o">.</span><span class="n">Markdown</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s2">"Generated Brochure"</span><span class="p">)</span>
+
+    <span class="n">btn</span> <span class="o">=</span> <span class="n">gr</span><span class="o">.</span><span class="n">Button</span><span class="p">(</span><span class="s2">"Generate Brochure"</span><span class="p">)</span>
+    <span class="n">btn</span><span class="o">.</span><span class="n">click</span><span class="p">(</span><span class="n">brochure_app</span><span class="p">,</span> <span class="n">inputs</span><span class="o">=</span><span class="p">[</span><span class="n">name</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="n">tone</span><span class="p">,</span> <span class="n">language</span><span class="p">],</span> <span class="n">outputs</span><span class="o">=</span><span class="n">output</span><span class="p">)</span>
+
+<span class="n">demo</span><span class="o">.</span><span class="n">launch</span><span class="p">()</span>
 </pre></div>
 
      </div>
@@ -17930,7 +15055,12 @@ with the familiar typewriter animation</p>
 
 
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
-<pre>Found links: {&#39;links&#39;: [{&#39;type&#39;: &#39;about page&#39;, &#39;url&#39;: &#39;https://edition.cnn.com/about&#39;}, {&#39;type&#39;: &#39;careers page&#39;, &#39;url&#39;: &#39;https://careers.wbd.com/cnnjobs&#39;}, {&#39;type&#39;: &#39;company overview&#39;, &#39;url&#39;: &#39;https://edition.cnn.com/profiles/cnn-leadership&#39;}]}
+<pre>It looks like you are running Gradio on a hosted a Jupyter notebook. For the Gradio app to work, sharing must be enabled. Automatically setting `share=True` (you can turn this off by setting `share=False` in `launch()` explicitly).
+
+Colab notebook detected. To show errors in colab notebook, set debug=True in launch()
+* Running on public URL: https://1bda93c2fcc9aac468.gradio.live
+
+This share link expires in 1 week. For free permanent hosting and GPU upgrades, run `gradio deploy` from the terminal in the working directory to deploy to Hugging Face Spaces (https://huggingface.co/spaces)
 </pre>
 </div>
 </div>
@@ -17942,145 +15072,8 @@ with the familiar typewriter animation</p>
 
 
 
-
-<div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-OutputArea-output " data-mime-type="text/markdown">
-<h1 id="Welcome-to-CNN!">Welcome to CNN!<a class="anchor-link" href="#Welcome-to-CNN!">&#182;</a></h1><h2 id="%F0%9F%94%A5-Breaking-News,-Insightful-Analysis-&amp;-Engaging-Stories!">&#128293; Breaking News, Insightful Analysis &amp; Engaging Stories!<a class="anchor-link" href="#%F0%9F%94%A5-Breaking-News,-Insightful-Analysis-&amp;-Engaging-Stories!">&#182;</a></h2><p>At CNN, we bring you the latest and most relevant news from around the world straight to your screens! Whether it's politics that keep you on your toes, business insights for future investors, or health tips for a better life, we've got it all covered!</p>
-<h3 id="%F0%9F%8C%8D-Your-Source-for-Everything!">&#127757; Your Source for Everything!<a class="anchor-link" href="#%F0%9F%8C%8D-Your-Source-for-Everything!">&#182;</a></h3><p><strong>Categories We Cover:</strong></p>
-<ul>
-<li><strong>US &amp; World News</strong>: Stay informed about domestic and global affairs.</li>
-<li><strong>Politics</strong>: From congressional debates to presidential elections, we keep it relevant!</li>
-<li><strong>Business &amp; Technology</strong>: Track market trends and innovations shaping our economy's future.</li>
-<li><strong>Health &amp; Science</strong>: Learn about wellness tips, breakthroughs, and everything life-science related.</li>
-<li><strong>Entertainment &amp; Sports</strong>: Catch the latest scoop on your favorite celebrities and thrilling sports events!</li>
-</ul>
-<h3 id="%F0%9F%8C%9F-Company-Culture:-Where-Innovation-Meets-Engagement">&#127775; Company Culture: Where Innovation Meets Engagement<a class="anchor-link" href="#%F0%9F%8C%9F-Company-Culture:-Where-Innovation-Meets-Engagement">&#182;</a></h3><p>At CNN, we pride ourselves on fostering an inclusive and collaborative work environment. Our culture encourages creativity and innovation, empowering every team member to express their ideas. We believe that great stories come from diverse perspectives, and we are committed to building a team that reflects this diversity.</p>
-<h3 id="%F0%9F%92%BC-Careers-at-CNN:-Join-the-News-Revolution!">&#128188; Careers at CNN: Join the News Revolution!<a class="anchor-link" href="#%F0%9F%92%BC-Careers-at-CNN:-Join-the-News-Revolution!">&#182;</a></h3><p>Are you passionate about storytelling? Do you want to make a difference in how the world consumes news? We’d love to hear from you! Join a dedicated team of journalists, producers, and digital innovators who share a common goal: to inform, engage, and inspire our audience. Explore exciting career opportunities where your voice matters, and your work can shape the future of news!</p>
-<h3 id="%F0%9F%8E%89-Customers-&amp;-Community">&#127881; Customers &amp; Community<a class="anchor-link" href="#%F0%9F%8E%89-Customers-&amp;-Community">&#182;</a></h3><p>Our global audience counts on CNN for reliable information and compelling narratives. Whether it's through breaking news alerts or engaging video content, we’re deeply committed to keeping our users informed and entertained. By tuning in, our viewers become part of the CNN community!</p>
-<h3 id="Let%E2%80%99s-Connect!">Let&#8217;s Connect!<a class="anchor-link" href="#Let%E2%80%99s-Connect!">&#182;</a></h3><p>For more updates or if you have feedback, feel free to reach out! Your input helps us improve and provide the content you want to see. With CNN, the stories that matter to you are just a click away!</p>
-<p><em>Thank you for being part of our journey as we continue to inform, inspire, and engage the world.</em></p>
-
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[21]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">translation_language</span> <span class="o">=</span> <span class="s2">"Hindi"</span>
-<span class="n">translate_system_prompt</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"Imagine you are a professional </span><span class="si">{</span><span class="n">translation_language</span><span class="si">}</span><span class="s2"> translator. Now translated the generated brochure in </span><span class="si">{</span><span class="n">translation_language</span><span class="si">}</span><span class="s2">.</span><span class="se">\n</span><span class="s2">"</span>
-</pre></div>
-
-     </div>
-</div>
-</div>
-</div>
-
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[22]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">translate_to_languge</span><span class="p">(</span><span class="n">base_brochure</span><span class="p">,</span> <span class="n">translation_language</span><span class="p">):</span>
-    <span class="n">response</span> <span class="o">=</span> <span class="n">openai</span><span class="o">.</span><span class="n">chat</span><span class="o">.</span><span class="n">completions</span><span class="o">.</span><span class="n">create</span><span class="p">(</span>
-        <span class="n">model</span><span class="o">=</span><span class="s2">"gpt-3.5-turbo"</span><span class="p">,</span>
-        <span class="n">messages</span><span class="o">=</span><span class="p">[</span>
-            <span class="p">{</span><span class="s2">"role"</span><span class="p">:</span> <span class="s2">"system"</span><span class="p">,</span> <span class="s2">"content"</span><span class="p">:</span> <span class="n">translate_system_prompt</span><span class="p">},</span>
-            <span class="p">{</span><span class="s2">"role"</span><span class="p">:</span> <span class="s2">"user"</span><span class="p">,</span> <span class="s2">"content"</span><span class="p">:</span> <span class="n">base_brochure</span><span class="p">}</span>
-        <span class="p">]</span>
-    <span class="p">)</span>
-    <span class="n">result</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">choices</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">message</span><span class="o">.</span><span class="n">content</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">English Brochure</span><span class="se">\n</span><span class="s2">"</span><span class="p">)</span>
-    <span class="n">display</span><span class="p">(</span><span class="n">Markdown</span><span class="p">(</span><span class="n">base_brochure</span><span class="p">))</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="se">\n</span><span class="si">{</span><span class="n">translation_language</span><span class="si">}</span><span class="s2"> Brochure</span><span class="se">\n</span><span class="s2">"</span><span class="p">)</span>
-    <span class="n">display</span><span class="p">(</span><span class="n">Markdown</span><span class="p">(</span><span class="n">result</span><span class="p">))</span>
-</pre></div>
-
-     </div>
-</div>
-</div>
-</div>
-
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[23]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">translate_to_languge</span><span class="p">(</span><span class="n">english_brochure</span><span class="p">,</span> <span class="n">translation_language</span><span class="p">)</span>
-</pre></div>
-
-     </div>
-</div>
-</div>
-</div>
-
-<div class="jp-Cell-outputWrapper">
-<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
-</div>
-
-
-<div class="jp-OutputArea jp-Cell-outputArea">
-
-<div class="jp-OutputArea-child">
-
-    
-    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
-
-
-<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
-<pre>
-English Brochure
-
-</pre>
-</div>
-</div>
-
-<div class="jp-OutputArea-child">
-
-    
-    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
-
-
-
-
-<div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-OutputArea-output " data-mime-type="text/markdown">
-<p>markdown</p>
-<h1 id="%F0%9F%8C%9F-Welcome-to-CNN!-%F0%9F%8C%8D">&#127775; Welcome to CNN! &#127757;<a class="anchor-link" href="#%F0%9F%8C%9F-Welcome-to-CNN!-%F0%9F%8C%8D">&#182;</a></h1><p>At CNN, we’re not just about headlines; we’re about heart, hustle, and helping you stay informed about the world around you! We believe knowledge is power, and our mission is to deliver news and stories that matter—swiftly, accurately, and vividly!</p>
-<hr>
-<h2 id="%F0%9F%8E%A4-Who-Are-We?">&#127908; Who Are We?<a class="anchor-link" href="#%F0%9F%8E%A4-Who-Are-We?">&#182;</a></h2><p>CNN, a pioneer in news broadcasting, is dedicated to bringing you <strong>Breaking News, Latest Trends, and Noteworthy Videos</strong> from every corner of the globe. With a team of skilled reporters, analysts, and storytellers, we dive deep into topics ranging from <strong>Politics</strong> and <strong>Business</strong> to <strong>Science</strong>, <strong>Health</strong>, and <strong>Entertainment</strong>!</p>
-<hr>
-<h2 id="%F0%9F%8E%89-Our-Company-Culture">&#127881; Our Company Culture<a class="anchor-link" href="#%F0%9F%8E%89-Our-Company-Culture">&#182;</a></h2><h3 id="Feedback-Drives-Us!"><strong>Feedback Drives Us!</strong><a class="anchor-link" href="#Feedback-Drives-Us!">&#182;</a></h3><p>At CNN, your voice matters! We encourage feedback to improve our services and user experience—because we believe in continuously evolving and ensuring that our audience gets what they want, when they want it. Don’t hesitate to let us know how we can better serve you! 🗣️</p>
-<h3 id="Collaboration-&amp;-Diversity"><strong>Collaboration &amp; Diversity</strong><a class="anchor-link" href="#Collaboration-&amp;-Diversity">&#182;</a></h3><p>We celebrate a culture that thrives on diversity and collaboration, creating an inclusive environment where every opinion is valued. Join us as we explore the fascinating tales that shape our world!</p>
-<hr>
-<h2 id="%F0%9F%91%A5-Our-Audience:">&#128101; Our Audience:<a class="anchor-link" href="#%F0%9F%91%A5-Our-Audience:">&#182;</a></h2><p>CNN’s audience spans across the globe, from curious consumers to informed investors and everyone in between! Whether you’re seeking <strong>in-depth analysis</strong> of world events or <strong>entertainment updates</strong>, we’ve got you covered! 🗞️</p>
-<hr>
-<h2 id="%F0%9F%9A%80-Careers-at-CNN">&#128640; Careers at CNN<a class="anchor-link" href="#%F0%9F%9A%80-Careers-at-CNN">&#182;</a></h2><h3 id="Join-the-CNN-Family!"><strong>Join the CNN Family!</strong><a class="anchor-link" href="#Join-the-CNN-Family!">&#182;</a></h3><p>We are always on the lookout for passionate and innovative individuals who are ready to make a difference. If you’re eager to tell stories that resonate and to create impactful content, then your dream job awaits you here at CNN!</p>
-<ul>
-<li><strong>Dynamic Work Environment</strong>: Work in an atmosphere that encourages creativity and connectivity. </li>
-<li><strong>Growth Opportunities</strong>: Ample chances for personal and professional growth! </li>
-<li><strong>Be Part of Something Bigger</strong>: Contribute to impactful journalism that shapes perspectives and sparks conversations.</li>
-</ul>
-<hr>
-<h2 id="%F0%9F%8C%88-Connect-with-Us!">&#127752; Connect with Us!<a class="anchor-link" href="#%F0%9F%8C%88-Connect-with-Us!">&#182;</a></h2><p>We provide news in various languages and formats across multiple platforms, ensuring that everyone has access to the stories that drive our world forward. Sign up for our newsletters, follow us on social media, or dive into our live broadcasts—stay updated no matter where you are!</p>
-<hr>
-<p>Join us in making sense of the world, one story at a time! 📺✨</p>
-<p><a href="#">Work for CNN</a> | <a href="#">Connect with Us</a> | <a href="#">Feedback</a></p>
-<p>Together, let's explore the powerful tales unfolding around us. Welcome to CNN!</p>
-
+<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output " data-mime-type="text/html">
+<div><iframe src="https://1bda93c2fcc9aac468.gradio.live" width="100%" height="500" allow="autoplay; camera; microphone; clipboard-read; clipboard-write;" frameborder="0" allowfullscreen></iframe></div>
 </div>
 
 </div>
@@ -18088,70 +15081,19 @@ English Brochure
 <div class="jp-OutputArea-child">
 
     
-    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
-
-
-<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
-<pre>
-Hindi Brochure
-
-</pre>
-</div>
-</div>
-
-<div class="jp-OutputArea-child">
-
-    
-    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[61]:</div>
 
 
 
 
-<div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-OutputArea-output " data-mime-type="text/markdown">
-<h1 id="%F0%9F%8C%9F-%E0%A4%B8%E0%A5%80%E0%A4%8F%E0%A4%A8%E0%A4%8F%E0%A4%A8-%E0%A4%AE%E0%A5%87%E0%A4%82-%E0%A4%86%E0%A4%AA%E0%A4%95%E0%A4%BE-%E0%A4%B8%E0%A5%8D%E0%A4%B5%E0%A4%BE%E0%A4%97%E0%A4%A4-%E0%A4%B9%E0%A5%88!-%F0%9F%8C%8D">&#127775; &#2360;&#2368;&#2319;&#2344;&#2319;&#2344; &#2350;&#2375;&#2306; &#2310;&#2346;&#2325;&#2366; &#2360;&#2381;&#2357;&#2366;&#2327;&#2340; &#2361;&#2376;! &#127757;<a class="anchor-link" href="#%F0%9F%8C%9F-%E0%A4%B8%E0%A5%80%E0%A4%8F%E0%A4%A8%E0%A4%8F%E0%A4%A8-%E0%A4%AE%E0%A5%87%E0%A4%82-%E0%A4%86%E0%A4%AA%E0%A4%95%E0%A4%BE-%E0%A4%B8%E0%A5%8D%E0%A4%B5%E0%A4%BE%E0%A4%97%E0%A4%A4-%E0%A4%B9%E0%A5%88!-%F0%9F%8C%8D">&#182;</a></h1><p>सीएनएन में, हम सिर्फ हेडलाइन्स के बारे में नहीं हैं; हम दिल, मेहनत, और आपको आपके चारों ओर की दुनिया के बारे में सूचित रहने में मदद करने के बारे में हैं! हमे ज्ञान की शक्ति मानते हैं, और हमारा मिशन समाचार और कहानियों को जो मायने रखते हैं—तेजी से, सटीकता से, और जीवंतता से!</p>
-<hr>
-<h2 id="%F0%9F%8E%A4-%E0%A4%B9%E0%A4%AE-%E0%A4%95%E0%A5%8C%E0%A4%A8-%E0%A4%B9%E0%A5%88%E0%A4%82?">&#127908; &#2361;&#2350; &#2325;&#2380;&#2344; &#2361;&#2376;&#2306;?<a class="anchor-link" href="#%F0%9F%8E%A4-%E0%A4%B9%E0%A4%AE-%E0%A4%95%E0%A5%8C%E0%A4%A8-%E0%A4%B9%E0%A5%88%E0%A4%82?">&#182;</a></h2><p>सीएनएन, समाचार प्रसारण में एक अग्रणी, हर कोने से <strong>ब्रेकिंग न्यूज, नवीनतम ट्रेंड्स, और महत्वपूर्ण वीडियो</strong> आप तक पहुंचाने के लिए समर्पित है। हमारे पास कुशल पत्रकार, विश्लेषक, और कहानीकारों की टीम है, जो <strong>राजनीति</strong> और <strong>व्यापार</strong> से लेकर <strong>विज्ञान</strong>, <strong>स्वास्थ्य</strong>, और <strong>मनोरंजन</strong> जैसे विषयों में गहराई से जा रही है!</p>
-<hr>
-<h2 id="%F0%9F%8E%89-%E0%A4%B9%E0%A4%AE%E0%A4%BE%E0%A4%B0%E0%A4%BE-%E0%A4%95%E0%A4%82%E0%A4%AA%E0%A4%A8%E0%A5%80%E0%A4%AF-%E0%A4%B8%E0%A4%82%E0%A4%B8%E0%A5%8D%E0%A4%95%E0%A5%83%E0%A4%A4%E0%A4%BF">&#127881; &#2361;&#2350;&#2366;&#2352;&#2366; &#2325;&#2306;&#2346;&#2344;&#2368;&#2351; &#2360;&#2306;&#2360;&#2381;&#2325;&#2371;&#2340;&#2367;<a class="anchor-link" href="#%F0%9F%8E%89-%E0%A4%B9%E0%A4%AE%E0%A4%BE%E0%A4%B0%E0%A4%BE-%E0%A4%95%E0%A4%82%E0%A4%AA%E0%A4%A8%E0%A5%80%E0%A4%AF-%E0%A4%B8%E0%A4%82%E0%A4%B8%E0%A5%8D%E0%A4%95%E0%A5%83%E0%A4%A4%E0%A4%BF">&#182;</a></h2><h3 id="%E0%A4%AA%E0%A5%8D%E0%A4%B0%E0%A4%A4%E0%A4%BF%E0%A4%95%E0%A5%8D%E0%A4%B0%E0%A4%BF%E0%A4%AF%E0%A4%BE-%E0%A4%B9%E0%A4%AE%E0%A5%87%E0%A4%82-%E0%A4%AA%E0%A5%8D%E0%A4%B0%E0%A5%87%E0%A4%B0%E0%A4%BF%E0%A4%A4-%E0%A4%95%E0%A4%B0%E0%A4%A4%E0%A5%80-%E0%A4%B9%E0%A5%88!"><strong>&#2346;&#2381;&#2352;&#2340;&#2367;&#2325;&#2381;&#2352;&#2367;&#2351;&#2366; &#2361;&#2350;&#2375;&#2306; &#2346;&#2381;&#2352;&#2375;&#2352;&#2367;&#2340; &#2325;&#2352;&#2340;&#2368; &#2361;&#2376;!</strong><a class="anchor-link" href="#%E0%A4%AA%E0%A5%8D%E0%A4%B0%E0%A4%A4%E0%A4%BF%E0%A4%95%E0%A5%8D%E0%A4%B0%E0%A4%BF%E0%A4%AF%E0%A4%BE-%E0%A4%B9%E0%A4%AE%E0%A5%87%E0%A4%82-%E0%A4%AA%E0%A5%8D%E0%A4%B0%E0%A5%87%E0%A4%B0%E0%A4%BF%E0%A4%A4-%E0%A4%95%E0%A4%B0%E0%A4%A4%E0%A5%80-%E0%A4%B9%E0%A5%88!">&#182;</a></h3><p>सीएनएन में, आपकी आवाज मायना रखती है! हम सेवाओं और उपयोगकर्ता अनुभव में सुधार करने के लिए प्रतिक्रिया को प्रोत्साहित करते हैं—क्योंकि हम सतत विकास और सुनिश्चित करने में विश्वास रखते हैं कि हमारे दर्शक को वो मिले जो चाहते हैं, जब चाहें। हमें बताने में हिचकिचाना मत! 🗣️</p>
-<h3 id="%E0%A4%B8%E0%A4%B9%E0%A4%AF%E0%A5%8B%E0%A4%97-%E0%A4%94%E0%A4%B0-%E0%A4%B5%E0%A4%BF%E0%A4%B5%E0%A4%BF%E0%A4%A7%E0%A4%A4%E0%A4%BE"><strong>&#2360;&#2361;&#2351;&#2379;&#2327; &#2324;&#2352; &#2357;&#2367;&#2357;&#2367;&#2343;&#2340;&#2366;</strong><a class="anchor-link" href="#%E0%A4%B8%E0%A4%B9%E0%A4%AF%E0%A5%8B%E0%A4%97-%E0%A4%94%E0%A4%B0-%E0%A4%B5%E0%A4%BF%E0%A4%B5%E0%A4%BF%E0%A4%A7%E0%A4%A4%E0%A4%BE">&#182;</a></h3><p>हम विविधता और सहयोग पर समृद्धि करने वाली संस्कृति की प्रशंसा करते हैं, जहां हर राय को मूल्य दिया जाता है। हमें साथ जुड़ें जैसे हम उन रोचक कथाओं का अन्वेषण करें जो हमारी दुनिया को आकार देती हैं!</p>
-<hr>
-<h2 id="%F0%9F%91%A5-%E0%A4%B9%E0%A4%AE%E0%A4%BE%E0%A4%B0%E0%A4%BE-%E0%A4%A6%E0%A4%B0%E0%A5%8D%E0%A4%B6%E0%A4%95:">&#128101; &#2361;&#2350;&#2366;&#2352;&#2366; &#2342;&#2352;&#2381;&#2358;&#2325;:<a class="anchor-link" href="#%F0%9F%91%A5-%E0%A4%B9%E0%A4%AE%E0%A4%BE%E0%A4%B0%E0%A4%BE-%E0%A4%A6%E0%A4%B0%E0%A5%8D%E0%A4%B6%E0%A4%95:">&#182;</a></h2><p>सीएनएन का दर्शनकर्ता पूरी दुनिया में फैला हुआ है, जिनमें जिज्ञासु उपभोक्ता से जानकार निवेशक तक और सभी कुछ आता है! चाहे आप दुनिया के घटनाओं का <strong>गहरा विश्लेषण</strong> ढूँढ रहे हों या <strong>मनोरंजन अपडेट</strong> को, हमने आपको पोर्ट किया है! 🗞️</p>
-<hr>
-<h2 id="%F0%9F%9A%80-%E0%A4%B8%E0%A5%80%E0%A4%8F%E0%A4%A8%E0%A4%8F%E0%A4%A8-%E0%A4%AE%E0%A5%87%E0%A4%82-%E0%A4%95%E0%A4%B0%E0%A4%BF%E0%A4%AF%E0%A4%B0">&#128640; &#2360;&#2368;&#2319;&#2344;&#2319;&#2344; &#2350;&#2375;&#2306; &#2325;&#2352;&#2367;&#2351;&#2352;<a class="anchor-link" href="#%F0%9F%9A%80-%E0%A4%B8%E0%A5%80%E0%A4%8F%E0%A4%A8%E0%A4%8F%E0%A4%A8-%E0%A4%AE%E0%A5%87%E0%A4%82-%E0%A4%95%E0%A4%B0%E0%A4%BF%E0%A4%AF%E0%A4%B0">&#182;</a></h2><h3 id="%E0%A4%B8%E0%A5%80%E0%A4%8F%E0%A4%A8%E0%A4%8F%E0%A4%A8-%E0%A4%AA%E0%A4%B0%E0%A4%BF%E0%A4%B5%E0%A4%BE%E0%A4%B0-%E0%A4%AE%E0%A5%87%E0%A4%82-%E0%A4%B6%E0%A4%BE%E0%A4%AE%E0%A4%BF%E0%A4%B2-%E0%A4%B9%E0%A5%8B%E0%A4%82!"><strong>&#2360;&#2368;&#2319;&#2344;&#2319;&#2344; &#2346;&#2352;&#2367;&#2357;&#2366;&#2352; &#2350;&#2375;&#2306; &#2358;&#2366;&#2350;&#2367;&#2354; &#2361;&#2379;&#2306;!</strong><a class="anchor-link" href="#%E0%A4%B8%E0%A5%80%E0%A4%8F%E0%A4%A8%E0%A4%8F%E0%A4%A8-%E0%A4%AA%E0%A4%B0%E0%A4%BF%E0%A4%B5%E0%A4%BE%E0%A4%B0-%E0%A4%AE%E0%A5%87%E0%A4%82-%E0%A4%B6%E0%A4%BE%E0%A4%AE%E0%A4%BF%E0%A4%B2-%E0%A4%B9%E0%A5%8B%E0%A4%82!">&#182;</a></h3><p>हम हमेशा प्रेरित और नवाचारी व्यक्तियों की खोज कर रहें हैं जो तय करने के लिये अब कुछ करने को तैयार हैं। अगर आप कहानियों को महसूस करने और प्रभावी सामग्री बनाने में उत्साही हैं, तो तो आपका सपना नौकरी आपका सीएनएन में इंतजार कर रहा है!</p>
-<ul>
-<li><strong>गतिशील कार्य वातावरण</strong>: एक वातावरण में काम करें जो रचनात्मकता और जुड़ाव को प्रोत्साहित करता है। </li>
-<li><strong>वृद्धि के अवसर</strong>: निजी और पेशेवर विकास के लिए अधिक अवसर! </li>
-<li><strong>कुछ बड़े का हिस्सा बनें</strong>: प्रभावकारी पत्रकारिता में योगदान दें जो दृश्यांतरों को आकार देता है और चर्चाओं को स्फूर्ति देता है।</li>
-</ul>
-<hr>
-<h2 id="%F0%9F%8C%88-%E0%A4%B9%E0%A4%AE%E0%A4%B8%E0%A5%87-%E0%A4%9C%E0%A5%81%E0%A4%A1%E0%A4%BC%E0%A5%87%E0%A4%82!">&#127752; &#2361;&#2350;&#2360;&#2375; &#2332;&#2369;&#2337;&#2364;&#2375;&#2306;!<a class="anchor-link" href="#%F0%9F%8C%88-%E0%A4%B9%E0%A4%AE%E0%A4%B8%E0%A5%87-%E0%A4%9C%E0%A5%81%E0%A4%A1%E0%A4%BC%E0%A5%87%E0%A4%82!">&#182;</a></h2><p>हम विभिन्न भाषाओं और प्रारूपों में समाचार प्रदान करते हैं और कई प्लेटफ़ॉर्मों पर, सुनिश्चित करते हैं कि हर कोई उन कहानियों को प्राप्त करता है जो हमारी दुनिया को आगे बढ़ाने में मदद करती हैं। हमारे न्यूजलेटर्स के लिए साइन अप करें, हमें सोशल मीडिया पर फॉलो करें, या हमारी लाइव प्रसारण में डूबें—हर जगह अपडेट रहें, जहां भी रहें!</p>
-<hr>
-<p>हमारे साथ जुड़कर दुनिया को समझने में एक कहानी बार-ए-बार मदद करें! 📺✨</p>
-<p><a href="#">सीएनएन में काम करें</a> | <a href="#">हमसे जुड़ें</a> | <a href="#">प्रतिक्रिया</a></p>
-<p>साथ में चलो, हमारी दुनिया में क्रियाशील कथाओं का अन्वेषण करने। सीएनएन में आपका स्वागत है!</p>
-
+<div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain">
+<pre></pre>
 </div>
 
 </div>
 
 </div>
 
-</div>
-
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-
-     </div>
-</div>
-</div>
 </div>
 
 </div>
